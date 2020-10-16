@@ -125,12 +125,6 @@ x-blockReference: &blockReference
     time: *date
     height: *numberOfBlocks
 
-x-shelleyNetworkTag: &shelleyNetworkTag
-  description: Newtork tag for Shelley (0 for testnet, 1 for mainnet)
-  type: integer
-  minimum: 0
-  maximum: 15
-
 x-slotId: &slotId
   description: A slot identifier, given by epoch number and local slot index.
   type: object
@@ -330,15 +324,76 @@ x-poolMetadataSource: &poolMetadataSource
 x-walletCredentialPubkey: &walletCredentialPubkey
   description: An extended public key (public key + chain code) for credential
   type: string
-  format: hex
-  minLength: 128
-  maxLength: 128
-  example: 1423856bc91c49e928f6f30f4e8d665d53eb4ab6028bd0ac971809d514c92db11423856bc91c49e928f6f30f4e8d665d53eb4ab6028bd0ac971809d514c92db1
+  format: bech32
+  example: xpub13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
 
-x-walletScript: &walletScript
-  description: A script as text with predicates and verification keys. Here probably we should add a full-fledged script object
+x-verificationKeyHash: &verificationKeyHash
+  description: A verification key hash
   type: string
-  example: { "key" : "e09d36c79dec9bd1b3d9e152247701cd0bb860b5ebfd1de8abb6735a" }
+  format: base16
+  minLength: 56
+  maxLength: 56
+  example: 1423856bc91c49e928f6f30f4e8d665d53eb4ab6028bd0ac971809d5
+
+x-requireKeyHash: &requireKeyHash
+  description: Require key hash
+  type: object
+  required:
+    - key
+  properties:
+    key:
+      <<: *verificationKeyHash
+      description: key hash
+
+x-requireAll: &requireAll
+  description: Require all
+  type: object
+  required:
+    - all
+  properties:
+    all:
+      type: array
+      minItems: 1
+      items: *walletCredentialScript
+
+x-requireAny: &requireAny
+  description: Require any
+  type: object
+  required:
+    - any
+  properties:
+    any:
+      type: array
+      minItems: 1
+      items: *walletCredentialScript
+
+x-requireM: &requireM
+  description: Require any
+  type: object
+  required:
+    - from
+    - m
+  properties:
+    from:
+      type: array
+      minItems: 1
+      items: *walletCredentialScript
+    m:
+      type: integer
+      minimum: 1
+
+x-walletCredentialScript: &walletCredentialScript
+  description: A script object
+  type: object
+  oneOf:
+    - <<: *requireKeyHash
+      title: require key hash
+    - <<: *requireAll
+      title: require all of list
+    - <<: *requireAny
+      title: require any of list
+    - <<: *requireM
+      title: require m of list
 
 x-credential: &credential
   description: |
@@ -346,7 +401,7 @@ x-credential: &credential
     Could be either public key or script.
   type: object
   oneOf:
-    - <<: *walletScript
+    - <<: *walletCredentialScript
       title: script
     - <<: *walletCredentialPubkey
       title: public key
@@ -698,12 +753,9 @@ x-signedTransactionBlob: &signedTransactionBlob
   format: binary
 
 x-addressParts: &addressParts
-  description: Address credentials and network discriminant.
+  description: Address credentials.
   type: object
-  required:
-    - network_tag
   properties:
-    network_tag: *shelleyNetworkTag
     payment_credential: *credential
     stake_credential: *credential
 
@@ -3235,7 +3287,7 @@ paths:
       description: |
         <p align="right">status: <strong>unstable</strong></p>
 
-        Construct an address by specyfying credential for payment or stake and network.
+        Construct an address by specyfying credential for payment or stake.
       requestBody:
         content:
           application/json:

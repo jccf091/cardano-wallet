@@ -125,6 +125,11 @@ x-blockReference: &blockReference
     time: *date
     height: *numberOfBlocks
 
+x-networkTag: &networkTag
+  description: Can be null for 'Icarus' and 'Byron' styles.
+  type: integer
+  minimum: 0
+
 x-slotId: &slotId
   description: A slot identifier, given by epoch number and local slot index.
   type: object
@@ -320,6 +325,30 @@ x-poolMetadataSource: &poolMetadataSource
       type: string
       format: uri
       example: https://smash.cardano-mainnet.iohk.io/
+
+x-walletCredentialPubkey: &walletCredentialPubkey
+  description: An extended public key (public key + chain code) for credential
+  type: string
+  format: hex
+  minLength: 128
+  maxLength: 128
+  example: 1423856bc91c49e928f6f30f4e8d665d53eb4ab6028bd0ac971809d514c92db11423856bc91c49e928f6f30f4e8d665d53eb4ab6028bd0ac971809d514c92db1
+
+x-walletScript: &walletScript
+  description: A script as text with predicates and verification keys. Here probably we should add a full-fledged script object
+  type: string
+  example: { "key" : "e09d36c79dec9bd1b3d9e152247701cd0bb860b5ebfd1de8abb6735a" }
+
+x-credential: &credential
+  description: |
+    Credential that could act in spending or staking.
+    Could be either public key or script.
+  type: object
+  oneOf:
+    - <<: *walletScript
+      title: script
+    - <<: *walletCredentialPubkey
+      title: public key
 
 x-settings: &settings
   description: Settings
@@ -666,6 +695,16 @@ x-signedTransactionBlob: &signedTransactionBlob
   description: Signed transaction message binary blob.
   type: string
   format: binary
+
+x-addressParts: &addressParts
+  description: Address credentials and network discriminant.
+  type: object
+  required:
+    - network_tag
+  properties:
+    network_tag: *networkTag
+    payment_credential: *credential
+    stake_credential: *credential
 
 x-transactionStatus: &transactionStatus
   description: |
@@ -2164,6 +2203,17 @@ x-responsesPostExternalTransaction: &responsesPostExternalTransaction
       application/json:
         schema: *ApiTxId
 
+x-responsesPostAddress: &responsesPostAddress
+  <<: *responsesErr400
+  <<: *responsesErr405
+  <<: *responsesErr406
+  <<: *responsesErr415
+  202:
+    description: Accepted
+    content:
+      application/json:
+        schema: *ApiAddress
+
 x-responsesPostTransactionFee: &responsesPostTransactionFee
   <<: *responsesErr400
   <<: *responsesErr403
@@ -3175,6 +3225,21 @@ paths:
       parameters:
         - *parametersAddressId
       responses: *responsesInspectAddress
+
+  /addresses:
+    post:
+      operationId: postAddress
+      tags: ["Utils"]
+      summary: Construct Address
+      description: |
+        <p align="right">status: <strong>stable</strong></p>
+
+        Construct an address by specyfying credential for payment or stake and network.
+      requestBody:
+        content:
+          application/json:
+            schema: *addressParts
+      responses: *responsesPostAddress
 
   /settings:
     put:

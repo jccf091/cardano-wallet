@@ -125,10 +125,11 @@ x-blockReference: &blockReference
     time: *date
     height: *numberOfBlocks
 
-x-networkTag: &networkTag
-  description: Can be null for 'Icarus' and 'Byron' styles.
+x-shelleyNetworkTag: &shelleyNetworkTag
+  description: Newtork tag for Shelley (0 for testnet, 1 for mainnet)
   type: integer
   minimum: 0
+  maximum: 15
 
 x-slotId: &slotId
   description: A slot identifier, given by epoch number and local slot index.
@@ -702,7 +703,7 @@ x-addressParts: &addressParts
   required:
     - network_tag
   properties:
-    network_tag: *networkTag
+    network_tag: *shelleyNetworkTag
     payment_credential: *credential
     stake_credential: *credential
 
@@ -3232,7 +3233,7 @@ paths:
       tags: ["Utils"]
       summary: Construct Address
       description: |
-        <p align="right">status: <strong>stable</strong></p>
+        <p align="right">status: <strong>unstable</strong></p>
 
         Construct an address by specyfying credential for payment or stake and network.
       requestBody:

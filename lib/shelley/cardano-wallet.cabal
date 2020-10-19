@@ -80,6 +80,7 @@ library
     , text-class
     , time
     , transformers
+    , unix
     , unordered-containers
     , vector
     , warp

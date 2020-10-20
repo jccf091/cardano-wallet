@@ -43,6 +43,7 @@ library
     , cardano-crypto
     , cardano-crypto-class
     , cardano-crypto-wrapper
+    , cardano-wallet-launcher
     , cardano-ledger
     , cardano-slotting
     , cardano-wallet-cli
@@ -80,7 +81,6 @@ library
     , text-class
     , time
     , transformers
-    , unix
     , unordered-containers
     , vector
     , warp

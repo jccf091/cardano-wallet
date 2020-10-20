@@ -2421,7 +2421,6 @@ data ErrStartTimeLaterThanEndTime = ErrStartTimeLaterThanEndTime
 data ErrSelectForDelegation
     = ErrSelectForDelegationNoSuchWallet ErrNoSuchWallet
     | ErrSelectForDelegationFee ErrAdjustForFee
-    | ErrSelectForDelegationUnableToAssignInputs ErrNoSuchWallet
     deriving (Show, Eq)
 
 -- | Errors that can occur when signing a delegation certificate.

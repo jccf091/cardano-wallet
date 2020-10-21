@@ -11,11 +11,11 @@
     flags = { asserts = false; };
     package = {
       specVersion = "1.10";
-      identifier = { name = "io-sim"; version = "0.1.0.0"; };
+      identifier = { name = "io-sim"; version = "0.2.0.0"; };
       license = "Apache-2.0";
-      copyright = "2019 Input Output (Hong Kong) Ltd.";
+      copyright = "2019-2020 Input Output (Hong Kong) Ltd.";
       maintainer = "";
-      author = "Alexander Vieth, Marcin Szamotulski, Duncan Coutts";
+      author = "Duncan Coutts, Marcin Szamotulski, Alexander Vieth";
       homepage = "";
       url = "";
       synopsis = "A pure simlator for monadic concurrency with STM";
@@ -55,8 +55,8 @@
     } // {
     src = (pkgs.lib).mkDefault (pkgs.fetchgit {
       url = "https://github.com/input-output-hk/ouroboros-network";
-      rev = "9e498e0962044c582df0cbf2f81fa0450a67d5f7";
-      sha256 = "000ypfbdc6i6plc91vrcywj4yrw5vvafn7c6993xn1pvd18xjm5g";
+      rev = "f6466b6473df52a42316061e495f0defa2a71442";
+      sha256 = "0wvqrnhhlgx90cccsdgj94qgnvy6yb41x63gihdascx1cnhxzkik";
       });
     postUnpack = "sourceRoot+=/io-sim; echo source root reset to \$sourceRoot";
     }

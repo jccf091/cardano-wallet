@@ -90,8 +90,9 @@
         cardano-binary = ./cardano-binary.nix;
         cardano-binary-test = ./cardano-binary-test.nix;
         cardano-crypto-class = ./cardano-crypto-class.nix;
-        cardano-slotting = ./cardano-slotting.nix;
+        cardano-crypto-tests = ./cardano-crypto-tests.nix;
         cardano-crypto-praos = ./cardano-crypto-praos.nix;
+        cardano-slotting = ./cardano-slotting.nix;
         cardano-crypto = ./cardano-crypto.nix;
         small-steps = ./small-steps.nix;
         small-steps-test = ./small-steps-test.nix;
@@ -125,14 +126,14 @@
         io-sim-classes = ./io-sim-classes.nix;
         network-mux = ./network-mux.nix;
         ntp-client = ./ntp-client.nix;
-        ouroboros-network = ./ouroboros-network.nix;
         ouroboros-consensus = ./ouroboros-consensus.nix;
         ouroboros-consensus-byron = ./ouroboros-consensus-byron.nix;
         ouroboros-consensus-cardano = ./ouroboros-consensus-cardano.nix;
         ouroboros-consensus-shelley = ./ouroboros-consensus-shelley.nix;
+        ouroboros-network = ./ouroboros-network.nix;
+        ouroboros-network-framework = ./ouroboros-network-framework.nix;
         typed-protocols = ./typed-protocols.nix;
         typed-protocols-examples = ./typed-protocols-examples.nix;
-        ouroboros-network-framework = ./ouroboros-network-framework.nix;
         Win32-network = ./Win32-network.nix;
         http-client = ./http-client.nix;
         };

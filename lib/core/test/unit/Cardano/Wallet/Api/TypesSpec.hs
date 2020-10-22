@@ -24,6 +24,8 @@ module Cardano.Wallet.Api.TypesSpec (spec) where
 import Prelude hiding
     ( id )
 
+import Cardano.Address.Script
+    ( KeyHash (..), Script (..) )
 import Cardano.Mnemonic
     ( CheckSumBits
     , ConsistentEntropy
@@ -62,6 +64,7 @@ import Cardano.Wallet.Api.Types
     , ApiNtpStatus (..)
     , ApiPostRandomAddressData
     , ApiPutAddressesData (..)
+    , ApiScript (..)
     , ApiSelectCoinsAction (..)
     , ApiSelectCoinsData (..)
     , ApiSelectCoinsPayments (..)
@@ -266,6 +269,7 @@ import Test.QuickCheck
     ( Arbitrary (..)
     , Gen
     , InfiniteList (..)
+    , Positive (..)
     , applyArbitrary2
     , applyArbitrary4
     , arbitraryBoundedEnum
@@ -278,6 +282,8 @@ import Test.QuickCheck
     , property
     , scale
     , shrinkIntegral
+    , sized
+    , suchThat
     , vector
     , vectorOf
     , (.&&.)
@@ -322,6 +328,7 @@ spec = do
         "can perform roundtrip JSON serialization & deserialization, \
         \and match existing golden files" $ do
             jsonRoundtripAndGolden $ Proxy @(ApiAddress ('Testnet 0))
+            jsonRoundtripAndGolden $ Proxy @ApiScript
             jsonRoundtripAndGolden $ Proxy @(ApiT DerivationIndex)
             jsonRoundtripAndGolden $ Proxy @ApiEpochInfo
             jsonRoundtripAndGolden $ Proxy @(ApiSelectCoinsData ('Testnet 0))
@@ -965,6 +972,31 @@ instance Arbitrary (ApiAddress t) where
 instance Arbitrary ApiEpochInfo where
     arbitrary = ApiEpochInfo <$> arbitrary <*> genUniformTime
     shrink _ = []
+
+instance Arbitrary ApiScript where
+    arbitrary = ApiScript . ApiT <$> arbitrary
+    shrink = genericShrink
+
+instance Arbitrary Script where
+    arbitrary = Test.QuickCheck.scale (`div` 3) $ sized scriptTree
+      where
+        scriptTree 0 = RequireSignatureOf <$> arbitrary
+        scriptTree n = do
+            Positive m <- arbitrary `suchThat` (> (Positive 0))
+            let n' = n `div` (m + 1)
+            scripts <- vectorOf m (scriptTree n') `suchThat` (\v -> length v > 0)
+            atLeast <- choose (1, fromIntegral (m + 1))
+            elements
+                [ RequireAllOf scripts
+                , RequireAnyOf scripts
+                , RequireSomeOf atLeast scripts
+                ]
+    shrink = genericShrink
+
+instance Arbitrary KeyHash where
+    -- always generate valid hashes, because json decoding will immediately fail
+    -- on these.
+    arbitrary = KeyHash . BS.pack <$> vectorOf 28 arbitrary
 
 instance Arbitrary (ApiSelectCoinsPayments n) where
     arbitrary = genericArbitrary
@@ -1802,6 +1834,9 @@ instance ToSchema ApiNetworkInformation where
 
 instance ToSchema ApiNetworkClock where
     declareNamedSchema _ = declareSchemaForDefinition "ApiNetworkClock"
+
+instance ToSchema ApiScript where
+    declareNamedSchema _ = declareSchemaForDefinition "ApiScript"
 
 instance ToSchema ApiNetworkParameters where
     declareNamedSchema _ = declareSchemaForDefinition "ApiNetworkParameters"

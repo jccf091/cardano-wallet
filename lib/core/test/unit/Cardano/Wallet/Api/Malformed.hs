@@ -54,6 +54,7 @@ import Cardano.Wallet.Api.Types
     , ApiPoolId
     , ApiPostRandomAddressData
     , ApiPutAddressesData
+    , ApiScript
     , ApiSelectCoinsData
     , ApiSlotReference
     , ApiT (..)
@@ -256,6 +257,23 @@ instance Malformed (BodyParam ApiWalletSignData) where
             { "passphrase": #{wPassphrase}
             }|]
           , "Error in $: parsing Cardano.Wallet.Api.Types.ApiWalletSignData(ApiWalletSignData) failed, key 'metadata' not found"
+          )
+        ]
+
+instance Malformed (BodyParam ApiScript) where
+    malformed = first BodyParam <$>
+        [ ( ""
+          , "not enough input"
+          )
+        , ( Aeson.encode [aesonQQ|
+            { "all": []
+            }|]
+          , "Error in $.all: The JSON metadata top level must be a map (JSON object) from word to value."
+          )
+        , ( Aeson.encode [aesonQQ|
+            { "any": []
+            }|]
+          , "Error in $.any: The JSON metadata top level must be a map (JSON object) from word to value."
           )
         ]
 

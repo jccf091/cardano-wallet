@@ -1,0 +1,633 @@
+{
+    "seed": -534371557248112762,
+    "samples": [
+        {
+            "some": {
+                "from": [
+                    "script_vkh1rgx3qpqgqyfsy8cqqg0sw8gryqr3v8ctrs8sxxshqu2svzqajvr",
+                    "script_vkh1pggpurcnrsgsjxs7rsfpkxc9qqw3yxccquwqg8qjruf3gku3ak4",
+                    "script_vkh1qgtq5zsuyq0pkrqprq8pczc4zyp3wpsprvy3u8gdqs8q2nmqndw",
+                    "script_vkh1r5z3y8s3psqqs9sergg3kpcmp5rpkpcers0pugqrrc8qylttj0n",
+                    "script_vkh1yqrqcygcrcgp2qqdrsqqypqeqc8qcrcfq5zs29g4rcfpxyjhvja",
+                    "script_vkh1pcspvyggzqdps8saz5sqgqqdqcppcqcsqyg3grsqzcsq6tmskp7",
+                    "script_vkh1qcqs5xquzcz3yqgzpsy3qyg2p5zpyxg6pyyp68q8qgg3wvhc5f8",
+                    "script_vkh1putpxzgmz5y3gzgnqg0p29gwpgdzqqqszysqspgzq58p743w6g7",
+                    "script_vkh1zsqs5xg3pstqz8qjp5ps6gqdzud3srgjrsr3q9qezqrqqjhfrte",
+                    "script_vkh1ryspz8s9p5tpsyctzygqxzqdpvrp6psxrct3cygmrq0sqkjca4x"
+                ],
+                "at_least": 1
+            }
+        },
+        {
+            "all": [
+                {
+                    "some": {
+                        "from": [
+                            {
+                                "any": [
+                                    "script_vkh1pgqpv9cgzugqupgurqfswzspzgwq29q8rqfswqg9zqrqymgc7zk",
+                                    "script_vkh1rc23y9sqpu9s59qrzstq28s2pvdqxrqrpsqq79clrgwsx9lany8",
+                                    "script_vkh1rgwpxgqzzgvps9ggzq8psqszqqfsc9cmzuysqqs0r58svl3dlt5",
+                                    "script_vkh1zq9sq9cyrygq29c7yqxsjrcvyq8pcxgvzyv3g9sgryypkxzzpss",
+                                    "script_vkh1pvqswycrpsrqvyc6r583xps2qsgsurcnrgrpkpszpu23gdj3qv0",
+                                    "script_vkh1zqyscycgzvdpczgkzyp36qs3pgtqw9q8pgpssrstquyqc4zlvv9",
+                                    "script_vkh1zcysqps6p5vqwpq8pur35xgspqx3g9svzutqv9ghquspqnhqwpz",
+                                    "script_vkh1p5gq7qg0zqppkrc9r5w3z9qsz5gpyrcaqvgpjzsnqgdpuq65wdx",
+                                    "script_vkh1rsqqwqsazy23j8qxrsfzqqcrz5fszzghqvdszpgyzgps7exykz0",
+                                    "script_vkh1zqppj8cnqyvpy9fqyqzswqgfzyvq68gfpq9szqs4zuqquhv4ha0"
+                                ]
+                            }
+                        ],
+                        "at_least": 2
+                    }
+                }
+            ]
+        },
+        {
+            "some": {
+                "from": [
+                    {
+                        "some": {
+                            "from": [
+                                "script_vkh1rqt3zqsszqpq5qgqryv3src8zcwpzyq9pvxpj9surysqysecvtc",
+                                "script_vkh1pgv3y8qdrs8q6gqdqupp5rglquxqsycqryxqy9gqzyyqqt2hxyu",
+                                "script_vkh1rv2qzxqpzsp35zslzs9puxg3rczpqpqvzgpq79czzgfss9nsxlg",
+                                "script_vkh1pqqp2gqcp5w3x8cnpqqsjrsmzqzp5zgezgws6yg2zy03uw54xyf",
+                                "script_vkh1z5vpcxqjqstsu8g9qszs2rq5rsv35gq5zq8369qrpgysgrpngq4"
+                            ],
+                            "at_least": 5
+                        }
+                    },
+                    {
+                        "all": [
+                            "script_vkh1qg2pwpg3ps0sy9snzqppyxqypcrqjxglzyfqvgqyzuypgzzuh42"
+                        ]
+                    },
+                    {
+                        "all": [
+                            "script_vkh1zspqw8gez5pqw8c5pv8s6zqxr523upcfpcx32gpqzu93yvw6mx0"
+                        ]
+                    },
+                    {
+                        "all": [
+                            "script_vkh1psdqwqglqvrzqrs5r593q8gcrcfpyqsezyzqsrqgqs9sv8eyr40",
+                            "script_vkh1zuzqcxsmq5ppxyg7zgxs6qgtrc0sk9qzqgv3w9fqrqdpu7lnv4d",
+                            "script_vkh1qyq3zrg7qurq5qq9pc0qz8g9qy2sxzqhzsz3grserv83u093493",
+                            "script_vkh1zg0359eqpcy36pguzgg3zpqcqydswrqnqydp7rg6pqrs6w8eeht"
+                        ]
+                    },
+                    {
+                        "any": [
+                            "script_vkh1zuvqw9svqggp7psszuxp6ycgqqw3zyq2pstqg9c7ry9pxmwz5e6",
+                            "script_vkh1quzqyrchpyzpypc9qv93vzseqs837ys0rvyqxqg9zcf3x8hk5r0",
+                            "script_vkh1zqd3kqcqq5zsg9c2qgt37pqgrqfsx8g7zy2p59g0rv0svp86s2z"
+                        ]
+                    },
+                    {
+                        "any": [
+                            "script_vkh1qvy3krqaq5xsvxc6q5zpgxg5pvv3xxgkq5rp5zgxqyvsv6luwxp",
+                            "script_vkh1qcgqs8gprygpszsuzvspg9q4zvv37xg3zcws6rgtzqvp7e4ju7v",
+                            "script_vkh1qq8pg8g9qs2qk8cdyqgqzqgtrqyq6ps6qyvpjgquqcvqze9mx68",
+                            "script_vkh1zudp28g2py9qyqguq5dsq9q0rv2qzqctpq0p6pqlpu8pjvylkcj",
+                            "script_vkh1py0s68cspszqzrcdquqpq8qqrcxpsgquzcxpuqgwpuvsq0vfxw4",
+                            "script_vkh1rcyq2xsfrurqxzgrrywpszs4zsdqspgmzcvq5zsmryrq2s7dsfr"
+                        ]
+                    },
+                    {
+                        "all": [
+                            "script_vkh1pqgpcgqhzc8syzq2zu0p5zs9pqxsjreqqcqps8sxrutpxvg0mrd",
+                            "script_vkh1rsd329qtzuwqvygqqupqcxqmyqtqvxq8zv0358qfpg9s6v0su85",
+                            "script_vkh1pv2qx9s6zczqzyc6zcfq68syrctpqqg4pc2q5pc2pcxsxf4prz3",
+                            "script_vkh1pcqpxqcezv0s58g4ruyp2rc2zvq3u8sdzcypjrguqygpx98aadn",
+                            "script_vkh1q5w3wqc3qu8qkrgzqc23gyq4quzq6xgxrvx3gyc5psspcummcap",
+                            "script_vkh1qyxsyrq6pgt36zsqzyts2pcwzqd3uxcqrggsv9caqvgq6ee8w3z",
+                            "script_vkh1qsqp69g6qs9q2yg2psysxgqrzspsk8syyq9qqxscry8pg3dcx0r",
+                            "script_vkh1rvxsvyctp5q37xgwqyszq8ghpcp3uygwrgp379cfpv2p2kmu0ta"
+                        ]
+                    },
+                    {
+                        "any": [
+                            "script_vkh1pstqyqq4pvfqzgqsrsd378gwrvgss8cypu835rc8z5w3v74mxv5",
+                            "script_vkh1zcqqzzgqqyw3krg6zsvq79sjpu93sqq4rqrq7qgppg8pu0cqupx",
+                            "script_vkh1zqqpkqc0q5xs2zcgru236rc2qczpg8gqqcgpczpqzc8sjatl54v",
+                            "script_vkh1qsg3kzg3zvgq6zg3rstpurs3qqd3zrc0qug3jpcppg9syeyl82t",
+                            "script_vkh1qvpsqqq9rvvsyxsnyqzpurq9zgtqxrseqqqqypqczgpsca83c29",
+                            "script_vkh1qvxpg8s3ruvq69q5psy3xqeqrudjqxczzydpszqsqswswmdetmz",
+                            "script_vkh1pvvpqzqnpgzsgrqspyvqgpsppg2p5yc7zc83y8gxzy0qqeulpfy",
+                            "script_vkh1zqtqqzccrc0ps8eqz5vsspqlpvt3xystrywqvqc8qq2q72qcdcq"
+                        ]
+                    }
+                ],
+                "at_least": 9
+            }
+        },
+        {
+            "all": [
+                {
+                    "all": [
+                        "script_vkh1qy0qjzslzu23vgq0pqfsvrszr5ppjrgppuf3grscpy8py4lkws5",
+                        "script_vkh1rcdqu8gsq5y3xqckzvd3vxs4puys6xs8zqyp2qsjpc8qunvvca6",
+                        "script_vkh1pqt3qrg2r5fpkqgmrs2qqzsnpu8p5xgaqqtqjgqszg2qz82nky7",
+                        "script_vkh1qqt3jqpqzsrqjpczzgtqs9ghrcd3jqggrqyqyqc4zsvs29ds5xk",
+                        "script_vkh1rc8pvzq0rqv3c8gapgdsvrscpugqjygvru03qpscruvqj8t9x94",
+                        "script_vkh1qqwjqygyzyppzps6qurpsyq4pvfqs8cjpsxpjxqgqcq3u55ufke",
+                        "script_vkh1z52q5ygyqq0svrcrr5xjqrgzqy2pkrqqpypp7zqzqsqqqw065nv",
+                        "script_vkh1pu9s6pqmqqds2xcazugpsrclpyrqzps9zg836xssz5tpwesrpdp",
+                        "script_vkh1rc03jzs5pcvp2rq3rsgqz9c2q5sqjpslrv8pvqcsqqxqsclfq8p",
+                        "script_vkh1qgfpkyqlqgwpggqapcxsups2zqd3s8shpu8sspfqqyqp7qsahzz"
+                    ]
+                },
+                {
+                    "some": {
+                        "from": [
+                            "script_vkh1zcyqzqgyrytsjpsxzqq3wqqwruz32rsyrydssxgaqctpg4q9503",
+                            "script_vkh1psr3j9clruvsjrgdpu93j9sarv8pxpgxz523qrctru8qsaws2h6",
+                            "script_vkh1zvyskzcvpuzs6qcwpvfpq9qjrgrs2xclpgw3gxs4pc8syam53ns"
+                        ],
+                        "at_least": 3
+                    }
+                },
+                {
+                    "all": [
+                        "script_vkh1qugqk8qzzv9s6qqvrqtpwxg8py2scqsercws7xs7zup3qshwagr",
+                        "script_vkh1pv0qgqqkpuyqqyqrr5ts5pcwquyzq8gdpcd3y9qzrq8pjz70w6z",
+                        "script_vkh1qvqs68s9qgypqrsdpvwpx9q0psqqqqpqpvvp2rg2zvwsv900tfv",
+                        "script_vkh1quzqxzg5pusquygxzgwpk8gjzswpsycdr5spxxqxrg0pshac295",
+                        "script_vkh1ps9su9cvpcfpy8qdputqgqsyzy2qyzcqqvpq5rqcrg0qwl3fd9v",
+                        "script_vkh1qcv3uyqjr5pqx9gppy9qyrc0rsrpqpswqv232gqgpyxqxg754ar"
+                    ]
+                },
+                {
+                    "any": [
+                        "script_vkh1qvr3zyqhqyqsgzg3q5yqcyg8zczsvpg3pcgpwrsczsd3g29c66u",
+                        "script_vkh1rspq5qqepvtpsxsfzqdqxzs0q50qy9qezc8qjxgtqyxqjpzwn3y",
+                        "script_vkh1zgzqvqs3yqysqzsnpqp37xg6qvfsw9gfyqfsx8gcqqysym09rxw"
+                    ]
+                },
+                {
+                    "some": {
+                        "from": [
+                            "script_vkh1ru23szsxzqx3szcnqctqyzq3pywqxxcyzuxzqpg0pcspqx28up5",
+                            "script_vkh1rgrpy8cfpg8qggqhrg0syycspuyjqqsfz50sz9sspq2p5wf2m5l",
+                            "script_vkh1zstpg8g0rv9qyqglqqwpuyqhzuzqcqqqqy93g8qxzyvq2ussft5",
+                            "script_vkh1z5vp5qgvzvdqxrq6qqvqgrs0ps0s7xc7pct3wzs3pszssd2udcn",
+                            "script_vkh1zvfpqqpqqq0qcrcxzc8px9gcqgwpcxcvqs93yqg3rvtpxx2xjqg",
+                            "script_vkh1rvzskzq4r52qyqq2ryzsuycar5zsgpc5rcx3vpsvryd3y8qvt2h",
+                            "script_vkh1yqppwxckqc0p6pgpzy0q2rc6yqwswrqhrq0p59sgpgfsg9tx3w0",
+                            "script_vkh1pg9su8cnqs0pvrgzr523cxs3ru8pkyc9qvv3zyg4r5v3cp5ahgn",
+                            "script_vkh1qur3kycpryfs5qglpqg3jxpqpsqquqg9rczqkxc3qsrpcsukgyq",
+                            "script_vkh1zyvsgysxzggsxpc8pg2qyqgzqgspjgqhq5ysqpghqvgssqr5z7c"
+                        ],
+                        "at_least": 6
+                    }
+                },
+                {
+                    "any": [
+                        "script_vkh1q523w8guqvzsxxsczvqqu8fqq59zqrcmqcfpq9sjp5fqgp6vgrx"
+                    ]
+                },
+                {
+                    "all": [
+                        "script_vkh1qusp68sfz5vpx8qhqgzq59c6zsppcyg7ps8svrsgpytsy4wmydh",
+                        "script_vkh1qyp3y9qpryrpurs3rvtp2qgyqygqq8s0rgq3jys4rq8357nkjrl",
+                        "script_vkh1zqvpyxgzpcpqqxc7zgdpzzg2pvp35ycxrcwsgzq9zqwpxrenv76",
+                        "script_vkh1qggpqyc6pv0pxypqryxp6pqdryyp2pcgpg2pv8cgpu8szmr8aes",
+                        "script_vkh1puq3w8gtrc9px9qhzcv3ursyr5xzqqs3zcwpzpskpqz3xg3sg9d",
+                        "script_vkh1puxps9csrgt3zpgkps2s7pq6q5tp5xqnr58qwqghqcspyfpl2pn"
+                    ]
+                }
+            ]
+        },
+        {
+            "some": {
+                "from": [
+                    {
+                        "any": [
+                            "script_vkh1ryzsgpeqqvfpcreqrsqpv8shyqyq68gdqcpqq9q7r5zqqx82zz5",
+                            "script_vkh1zygsxpswquq3uxslzqqsvzqnpy03upq6pct3krsypu0q6wasvr2",
+                            "script_vkh1pyw3qzg6zsyq28srp5fp6rs9pqgqyycwrqwquzqhr5spudz6frj",
+                            "script_vkh1zu9pyrggzvwqkyqayqpsspqrzyqpxycqyqx3vrc2qg2q2ssj4z0",
+                            "script_vkh1pvq328qmr50s78q8rcw37pcxz5fpuys0zcq3uqqzrv03j3927s7"
+                        ]
+                    },
+                    {
+                        "some": {
+                            "from": [
+                                "script_vkh1rvzswzcrruspgqeqqyvpvqcjpcvq7zq0rgvs5zsrpy0qyywh37m",
+                                "script_vkh1ry83cpq0r5pq5qcjpvzqg8q5qq8p6qclzqdqz9fqpqgpku5pp8w",
+                                "script_vkh1ryvpyqc2qs0368gfrc83uyczqyt3uzq4q58q2yg3qsfsz75nj58",
+                                "script_vkh1zuzsgqceqqysgpctzurqkxszrg8zq9eqzs2qxrc2zudswn9n0gp",
+                                "script_vkh1rgxqvqczzvspspqpq5xqxyc9q5q329gkzsxqgrs3qqqqwhj26ry",
+                                "script_vkh1rvfsj8s7ryxscgq7quzs2zcqzgzqc8g7qsvpv9gkpcvqvplwnf4",
+                                "script_vkh1pgvq58srzup35xg6rv9pwxc4p5djqxc7q5zscpcrrc83vxsunfs",
+                                "script_vkh1rct3jyqczvfqzzskp5spspq5ruz3k8gmqytqy8gpzs93crua6rr",
+                                "script_vkh1zv0su8qrzcwqu8q0qvrqyrskrcw36rgzzy2p5zgmruspz7kydfd",
+                                "script_vkh1zuzq5zclq52sy8qpzvr3jqcjp5qpkqcyqsppjxc6qv93qwxwwle"
+                            ],
+                            "at_least": 9
+                        }
+                    },
+                    {
+                        "any": [
+                            "script_vkh1r5z3s8s3rs9qz9qmp5q3wxqmz5gq29chqg9qsqs0rgrq6ttmv8v",
+                            "script_vkh1py9su8gvpcx3cpeqzyxpsqqzzqzpj9ctqgvsjxsqpyspqxj4y99",
+                            "script_vkh1qurss8qnp583zysgpvg3xxcfp5wq7psupuysqrstr5rpzv50e97",
+                            "script_vkh1rvtqgpqgruvjq9czzcz3cqclp59sqqqzqc2pu9carg2pskyctha",
+                            "script_vkh1yqzqkrqyqgd35zgvzydqj9c5yqvpw9cazupqg9g2zyrzqvhqn08",
+                            "script_vkh1zggsw8qvqqqsjycwzsyq6z3qzvg3jqsvz5y378caput3g7fwl26",
+                            "script_vkh1pcypkxqlryqzq8svp5psuqc2qyvqy9qrpyw3vyq5ruz3u8mry8p"
+                        ]
+                    },
+                    {
+                        "any": [
+                            "script_vkh1q5tqw9s5r5xqy9chzqgs7yqaqvzjqzqvpvd3qyg2zgtpjvk0u44",
+                            "script_vkh1rvt3kzgxqsysszqjpuvqsxsgp5y3w8c0qs0szrs5zv2scta6p74",
+                            "script_vkh1py9q58q7zvwp5rs2zcwqyzc7pqp328q8pv9sxrsdquqpqynty0n",
+                            "script_vkh1zv9qjxczzq2puzqtpqy3kqcdz5y3qrcwqqfqzzgdzqtqy626ss0",
+                            "script_vkh1psy379qeqsrsqqc4rqypcpsnrywpwpgjpv9zqqcyqu8qu02ckxr",
+                            "script_vkh1pqtqupclrc8pxyskzqw3czqmqy0s6xqdpvxpwzqhrvrpcdcfalf",
+                            "script_vkh1rgrpkrcqpqwqwzgyps2szzqcqg2qcp3qqqzpkqgyyq837hnnm7y",
+                            "script_vkh1rcxqv9svpuqs5rquqg8qcxsprvvq5qqcqsysyygzzqzpva92t2j",
+                            "script_vkh1zsqsvxqjpgds7rqyzygpgxghqqppgps4zgf3wyc7rstpjhrps48"
+                        ]
+                    },
+                    {
+                        "any": [
+                            "script_vkh1yqtsqrsqqg8pcxg3pqfpuxqjrcd3g8c2ry2pvpskzusqzr5fgpn",
+                            "script_vkh1zvppqxqxpqdpq8g0quts2ygmryvq28ssruyscy3qqsqpxlgjpuk",
+                            "script_vkh1qc8qyzgfrurpyzgepgxqzpcgzyfpg9glqgxsypqmpuw3s9ec6fj",
+                            "script_vkh1pc03gyccrqpq2yqgqcts6qshrsfqgrqgqytscpskzu9suayeu63",
+                            "script_vkh1rqyq6ps0q5fpw8chz5tqcrc2p523uzqjpy8s58stquxpwyf8935",
+                            "script_vkh1pgfsjxgrzq9pqqchqqwjq8qlrcwpjyqqqyqscpqwqsv36hpxhu9",
+                            "script_vkh1yqz36rcmqgvpcrc5zu8sxr3qqgw3spfqpq0psycuzq8sjyn3vhv",
+                            "script_vkh1qutqz9qzrs9qqpglrgdscpgypg2p2zfqzg0pxxcvqu2q6uckd3s"
+                        ]
+                    },
+                    {
+                        "all": [
+                            "script_vkh1ps8ssrshrsvq69c6rsp36zcjzyfqsyqrqcx3szc9qyfjqc5lny7",
+                            "script_vkh1qqzpyzgpq5zpsqg8p59sqpg0rcxs2xcdzgzpw9qhzuxp7y8vfyp"
+                        ]
+                    }
+                ],
+                "at_least": 6
+            }
+        },
+        {
+            "some": {
+                "from": [
+                    {
+                        "some": {
+                            "from": [
+                                "script_vkh1qs8swrqjqgt3kzslrq0s7xqrq523czclqgvpy9glzyqqu4mna2v",
+                                "script_vkh1rqyp6ys8pc8pzyc7q593gpsaqcysurgfqs0sgrqzpuw36xk3wew",
+                                "script_vkh1rsfsgqsxpqrpqpg2rs0skrs5qcspvysmzydq69grpvpqg9yckwx",
+                                "script_vkh1qg83czgdq5v3yzgazsqskycmz5vqs9curvgpvxqypqzp2myy53t",
+                                "script_vkh1pcdqzrq8qyysc9c5yqgpjqgtzudpgystr5tpqps9q59p25erztd",
+                                "script_vkh1zcwq2rgjrswpgpg2yqfqj8c3qcppzrqrr59py8glp5fqy6ul6yj",
+                                "script_vkh1qcy3xqgkzqxpqxcaqcvs29skyq2pwqclz5vsqxqhruxp7a4v563",
+                                "script_vkh1pctq2yqspu0psyc2psyqw8qrqvz3c9qfqqrquzg0rq8pckx44sj"
+                            ],
+                            "at_least": 8
+                        }
+                    },
+                    {
+                        "any": [
+                            "script_vkh1pqq3c8ghqy0swpqtqsr3xpqpqsdqkpqmpq8sx8svqu8sg46tpey",
+                            "script_vkh1rsfq2qqxzvrqcpstqvy3wxchqqd3zrg5pszsxxgxpyqpkj87a72",
+                            "script_vkh1zg8pg8qszuqpy9qrrcvq59cfrytsyrskpyypzrscpg0q6pf0u84",
+                            "script_vkh1rysps8ggqy23xpscpgqqvrg2q50q2xcrqyzs5gq0pg2sqtkvhun",
+                            "script_vkh1ruvqsysrpct3upc6zyfzqqg3rud3qps8pg0pkxqlzgf3v2mkhd9",
+                            "script_vkh1z5fs78gfru9ps8csp5xp6xqwpvx3x8qhrvp3j8q0zgqpzkk9fj8"
+                        ]
+                    },
+                    {
+                        "any": [
+                            "script_vkh1rqzs2ychzyw3sxcfq59syrqerqxsg9c3zugqxrq8q59qca0yjmv",
+                            "script_vkh1zuypqqqrr5yq58cjryvp7ygyqswpzqgjqg9jqrqfrcqqz5qf2v7",
+                            "script_vkh1quwpz8c5pcvpqygkpsqsvzqnquts6yqprs2scyq3zy9psc837x7",
+                            "script_vkh1rc032xgtpudqqyczyqw37xspr5tpuxqmrcyqzpqup5zqx6mtq0q",
+                            "script_vkh1r5tpcyg3zyppqzgyq5vqupquqq9sqxqdpgdp2xq8rusqvturpll",
+                            "script_vkh1pcdswxg5py83q9g4zyg369g7zv8pu8q6qgzqqgqvpq23j85z59l",
+                            "script_vkh1ryp3crgaquf379sgruspzxqqq5xpzxg8qs9svzcqzyt367jgt6w",
+                            "script_vkh1zstqc8fqqqx32zcsquyqczqer50py8c4pc0pyrgaqyrqqpsena2",
+                            "script_vkh1rcxswychpvqs5qskqqppyzg7qupp79cnzgr3qyq6ry9qjj6g5eu"
+                        ]
+                    },
+                    {
+                        "all": [
+                            "script_vkh1zvfs78qrqc8px9qep50pqqqzzvdq2ys7ryrzqqcpqvtzq356esl",
+                            "script_vkh1pvt358q7qsfp5xg7zsqswycdrcz32zgszg8pgrg5qvt3ytx8yhj",
+                            "script_vkh1pspsgxc8zcr3gqsgrs93kpqdpsqsyrc7r59q7rqfzcdqu6kne8n",
+                            "script_vkh1p5dsu9ctrv9pxreqrg8sxzgzpgqsy9q5zg8qkqslyqwsy49w93e",
+                            "script_vkh1qvrpgzgyp5pqc8c6zyrs7pg9pupqq9grpy23zzq9zgf3cdhjjd7",
+                            "script_vkh1pcqqgzq0pgxsspqcrqwps8sqrv0pkxcyzqgp2rsczsz3q82dmrp",
+                            "script_vkh1zvxpszqyqq2sgxcvzcyqwrq0zvvquyc3zs235zclzuvpjrt2yxq",
+                            "script_vkh1pur36qfqpu9sspc6qg9qxqsepud3yzcyrqgpsxshzyd3xkcqjjr",
+                            "script_vkh1pqgq6zgcqv9qsrs5pyfqk9ceyqzp6xcfpcxqg8gxrvzpxpgte9f"
+                        ]
+                    },
+                    {
+                        "any": [
+                            "script_vkh1pgt3yqg7q5ps5pgvzc0qsrscqqzs7pg7psrqj9q0zc8pw8ulz39",
+                            "script_vkh1quyq2ycvz5sqq9c4rgsqg8s2rutsjqqgrvtsczs3qywpg9ppejp",
+                            "script_vkh1zv9sx8ckzqdqyqs4pctsg9qppqtszpcyqygsw9gups93z55ngzy",
+                            "script_vkh1pu9p5rcwpg8px83qqyp3y9gkzvtpsxgezstqkrqep59qurnp85p",
+                            "script_vkh1ruvpuqg4rg8q6qcypvgq6pquqcg37rs9pv2jqzspq5wqsvfke0m",
+                            "script_vkh1ry93u9qnrur3uxglrqt37gqlpgzq5zcdzq93qpqnqczqqc5v0g8",
+                            "script_vkh1zg9s6xserqsqy8cfyqz3kxgvqqzpgxsrr50pwqsqzu9pyggfcn7"
+                        ]
+                    },
+                    {
+                        "some": {
+                            "from": [
+                                "script_vkh1qqg3kzg9rgqzqrsnzc9qwzckzyrswrgsrqf36ycvz5gsq2gf40a"
+                            ],
+                            "at_least": 1
+                        }
+                    }
+                ],
+                "at_least": 6
+            }
+        },
+        {
+            "all": [
+                {
+                    "any": [
+                        "script_vkh1qu9s58qrrvysxqstrsx3jpctzcz35yq5qgp358q4qvyqs2x8kkk",
+                        "script_vkh1pgppx8gyrcw32pc3z5qsvzqkzgdq59qtrc9qxqqxzsfsuyljt7f",
+                        "script_vkh1qgt3jpcwquzqj8gkrgqsypcezvvqcps7pg936rsargqp5cptf4r",
+                        "script_vkh1psv3v9c5zu0jqgqwrv0qwpqwzcppwychzyt36yqtzyyqk4my6wk",
+                        "script_vkh1pcv37xc7zggqyqgwzcyp69q0zvqsq9c2z59pxxcyru23ggvt5nw",
+                        "script_vkh1zvq35xq9qvts5xq3qcwpjrscpywpwzq7zqtzqqq7rcrq6nccjta",
+                        "script_vkh1qg9sx8q4zyrsuxqcyqt379sxr5fq7rqppyvqxrpqry0pk3gr0w0"
+                    ]
+                },
+                {
+                    "some": {
+                        "from": [
+                            "script_vkh1qyrqwzgzzqzs6zqupgrswqqarcgpwx3qqy2skqgtrszpze2lxlz"
+                        ],
+                        "at_least": 1
+                    }
+                },
+                {
+                    "any": [
+                        "script_vkh1yqzqyxslpq0p59gkzsdswzq8zvypjpc6qypqwqcgryy356zy6kf",
+                        "script_vkh1rc83uxgmqgqs2yqtrqx3c8ghzsxqvzsvrqq378s2qsds228cunt",
+                        "script_vkh1rcfpxzqzpgd3ypszpyp37gqvpgysgrg6rqxsgxstqsqq7c4896a"
+                    ]
+                },
+                {
+                    "all": [
+                        "script_vkh1pspqxzcvqgtpxycdqyfssqckzsy3gxssquqqkqqdp5zpz35a6zd"
+                    ]
+                },
+                {
+                    "some": {
+                        "from": [
+                            "script_vkh1zq83yycnruvqzxcjrugs2xchzv03k9cdpy0sy9ckrvwqjxzrvwk",
+                            "script_vkh1ru9pq8cers2suxs7qyqsw8cjzgpq6pc6zup3y8qkzgzpvu8gaew",
+                            "script_vkh1ru23x8s7rvpqgrssqqgpw8g9yq8sc9qyruxjqgqlzvdqxy30unn"
+                        ],
+                        "at_least": 2
+                    }
+                },
+                {
+                    "any": [
+                        "script_vkh1rc8s2pssp5g35zgszyqqypsepqpp6qs3qg0pkrspzuv3uv6naxz",
+                        "script_vkh1zqrpvpqfrv9pxxscqy0pkxg9pspsgqsdzcgpu9spq5t3xm3zpjc",
+                        "script_vkh1q5tqyxcuqqfpz8gvpgtsvqqmqsrpcqslpsppurgrrvq3g702hxa"
+                    ]
+                },
+                {
+                    "some": {
+                        "from": [
+                            "script_vkh1pvr3jzgtqqrpzpqeqy93spg4zy9qkqc2qyt37zczzsrpwag4xpj",
+                            "script_vkh1yqwpxzcpzqxs2gqtrcqpzycryqzqjzslpcwscrqjr58pymeyt50",
+                            "script_vkh1qsgpu9qhzup3yzsxzspszqqpzc2s7zqdr5t35xcqzvd326arey7",
+                            "script_vkh1ryq36qcrpvyqkpqkpvzp7xglr5q3jpqwz5qp7zqqq5yskshtaja"
+                        ],
+                        "at_least": 5
+                    }
+                },
+                {
+                    "all": [
+                        "script_vkh1pc23gxgtr5ts6pcjpvt3v9sdpcrs78ggpypsyqg8rs23qahl759",
+                        "script_vkh1ru23y8syr52358shrsvsgqgkryqqvrgjyqwpvrgkpgfqce94n4h",
+                        "script_vkh1r5w3zyg5pyyqgpqerv9sv8c0zywqwyq3rcwswqg6pqvpwdkxdut",
+                        "script_vkh1zg83gygcr5x3czc3qyw3upsury2jq8sxqc9sups4zcrqwpyqd3f"
+                    ]
+                },
+                {
+                    "some": {
+                        "from": [
+                            "script_vkh1qs23xxg3qyqsjzsdqgzqgps0pqqqxzpqpvv36yqyzuqsw3menxk",
+                            "script_vkh1zu037p3qqqzs7gqyrcqpy9csz5v3jzqrrszp5xc3puf35r0ddfk",
+                            "script_vkh1rqfsvyq3r58p7yq5pqvpz8qez5pq5yszqgwqxzgnpg8pw2d6xe6",
+                            "script_vkh1qursyzs0pyws68sxpvrskrclp52qkxs4rsfp5yckrqpqqf88dyf",
+                            "script_vkh1quw3xxcxrs8swzshpqdquxcnzygsxzgmzqxpv8gnqqgs7a085up"
+                        ],
+                        "at_least": 2
+                    }
+                }
+            ]
+        },
+        {
+            "some": {
+                "from": [
+                    {
+                        "any": [
+                            "script_vkh1ryf3j9sxzs8sj9s2zv2qszs5zvt3sps2pqz35qcepvq3kzky5x7",
+                            "script_vkh1zgzpkzeqrszpy8q9rsvsk9cnpypq6zsrzyvpvqcpqsgqw5vj4k4",
+                            "script_vkh1qsqjq8s4rqpjqxqcz5wpxzs7putq6yg9qqtpczctpyrsxj37axq",
+                            "script_vkh1rg0jq8qxzcd3gxqkzvxscxqlrgxq2qgjrs0s7yq2quspwufhvss",
+                            "script_vkh1zszsqrglyqp3y8cgpgpqxrcwzgy36zs5qsvs6q3qpcws68vdv00",
+                            "script_vkh1zq837xqqzyz3wgqrpsxpkzcvpc0skycfrgppurc7zqps2ey5ruz",
+                            "script_vkh1pcspyqqspcypvqslrqw3gxq7r5p36gqeyqtqzzs6zgfqzp8cavy",
+                            "script_vkh1p5ysupcsrq8sqxpqqy0pg9szzcqpzpszqc2ssyg9z50pqzl0k4g",
+                            "script_vkh1py9jqxqqp5psy9q8pcxp69g0qsy3uys6qs9pqys6pq0q2hzaexy"
+                        ]
+                    },
+                    {
+                        "any": [
+                            "script_vkh1r52sc9g6qcwsyycxz50pvpgmrsv3kqc9rg9svqqnzq8sqx7zlt6",
+                            "script_vkh1rcx36rsuqutsqycrpvzsz8q0r5xpxqg3pctsu9gkruxqgl2jtr0",
+                            "script_vkh1rcgq6zgmpq83vzqkpsy3w8qtrqspy9gazqgqgzskqszqu59yape",
+                            "script_vkh1zyxqxxeqpc2scpc3ruq3q8gmqsr35pscru0pjpqpquysg57pvqq",
+                            "script_vkh1z5rp6xs4pgqqkrsnrswqcpcaqv2sx9qgpssq5pgkqggsv37hyy6",
+                            "script_vkh1qupsq9qeqvxqvzccqu2puzc6rvqpuqqwpy2qxpcqzsyqvzgnu3g"
+                        ]
+                    },
+                    {
+                        "some": {
+                            "from": [
+                                "script_vkh1zugqqzsqz5xsxrswzu8sy8g8zsqqyygwryqqwrgjyqvsg9362ga"
+                            ],
+                            "at_least": 1
+                        }
+                    },
+                    {
+                        "all": [
+                            "script_vkh1qcv369glqur358c3rq2pvpggzy93wrsyrgd3jqqmzqyp5a3kvpa",
+                            "script_vkh1rcp3jqq0zgwzqqq2qc9sqqqnrut3sxgmqsppx9saqsd350caexj",
+                            "script_vkh1r5gssqc5rcvpgzguq5wsxrqjpgdsjqguqsrpuqcar503c2hwrug",
+                            "script_vkh1rudzq8q6qqypg8gkq52q79chp5qqcgq6zgsp7ygrrvrjqfrema3",
+                            "script_vkh1ryx32ygfpc9q6rcvz59ssqgyzv9s5rqsruwsj8gmrg8pgealled",
+                            "script_vkh1pczps8qprqzquqcrpvrssgqvqcws5zqfq59q2rc7qcx3cqr46hx",
+                            "script_vkh1qyd3szclzcpqvxccpytqsxqlpcpq7xqwrgq3k9gcrsps29cfgts",
+                            "script_vkh1zug358qcqvtq29s2puzqvzgqqcwps8eqzsvpjxgvrggpgdg92km",
+                            "script_vkh1rudsgxcmpqrqkzclq52q5qqsqu2qypgergqzq9grqsq3g5pj3fa"
+                        ]
+                    },
+                    {
+                        "all": [
+                            "script_vkh1pgds6xctrgws69c3qqypgxqurudpxxeqzq2q6qpqrcr3up8k944",
+                            "script_vkh1zyxscyg7rv93yxqep5tpzgqyzvfpq9g8rvdqzpcjquzq6veyxe8",
+                            "script_vkh1zvtpgpcaqvpqqqqhzutqwxqzqq23xqcwrsspjzcgyqw3yys40f2",
+                            "script_vkh1qqsqgpcapugqcqgcpy2sw8cqrut3u8gqyqypvzc7rsw3jv6wau4",
+                            "script_vkh1pg8svzc7zywqjgqurgpqjzghqcvpsqgyqyxsj8slqg23za693rv",
+                            "script_vkh1ryvq6pcyrgwsxqs7rcgsv8g8ruyszrsdryys68gkrsvqw65nvjj",
+                            "script_vkh1ps9pxxg4quzqy9sqzutsyr3qputqzpq5puvqcpcwqyp3280u6gu",
+                            "script_vkh1ruysjxsjq50ps8c8p5qqgxcnrutskrcerugqyzqxp5ysgg9wa09",
+                            "script_vkh1pyypz8surc2pk9qgpvdpvrq9zsvps8qaqgz3ypqprcgq2t4dxhy",
+                            "script_vkh1qsdqq8g9ryg35q3qpv03kzc9z5t328gmzctsg8s0pgvqc2qudj0"
+                        ]
+                    }
+                ],
+                "at_least": 6
+            }
+        },
+        {
+            "some": {
+                "from": [
+                    {
+                        "any": [
+                            "script_vkh1p5ppjrqlp5t36z3qyqws6rqkpv03sqqmqu0qzpsfpszsx7y6l5p",
+                            "script_vkh1z5p32xqrqgrpcycer5rqgxgvzywqypgppqgpg8gpru8qqa4xwny",
+                            "script_vkh1zugpsxq8pswpvqcqq5fquqgfrvtqwzcgq5zpx8g3qcdsygetwd3"
+                        ]
+                    },
+                    {
+                        "any": [
+                            "script_vkh1qg03kxc5pgwq6pgfrqvqqxgcp50svpgupgw3u9qjqytpshmdx6q",
+                            "script_vkh1zvvqkxsup58s2qcnpu23vxqfqvd3wxgxqqdpsygwpc0pvkp8x4e",
+                            "script_vkh1pqqqygqpz5tsvpccpuys5ygezqd3jxsqzqy3gxgypvvsqfrtalg",
+                            "script_vkh1py0qs9q2rqqp2xskqssqsqcrzug3vygyzgrp58gmpsys60drtn5",
+                            "script_vkh1rc9qs9qzzsgqv8gnzqgpwrqlz5wq79srryqzqpgzzu83uucvtv6",
+                            "script_vkh1yqg3qrqwpudqspc8qypqvzsczcwq6zgppyfp2qcxpyyq5jvryzs",
+                            "script_vkh1pyxp2xgtzvf3crgsyq8s2qc4qsvpgpqdz5f3czcnpg0szyncfpq",
+                            "script_vkh1z5gpjzs9zgtqvrq7z523yyc4qspsszgypszpy8sapgr3vmth4wx"
+                        ]
+                    },
+                    {
+                        "some": {
+                            "from": [
+                                "script_vkh1rqf3qrsfrsppu8q5qsdswyclpq8pqzcnzs0q79c3q50pw3f7qug",
+                                "script_vkh1rgfqjygervyp2zgzrg9swys7qstqx9qurcfs2zs9rs8pct4e6fx",
+                                "script_vkh1zcf3uyggzu8p5ysnqv8p5ypqzuy36yscqqvpcpqszg2p59pz3rn",
+                                "script_vkh1py0qvgqhqsrq7qqeyqtquxsyzvvqc8qcpq8scqshzvpzqktsnpn"
+                            ],
+                            "at_least": 2
+                        }
+                    },
+                    {
+                        "all": [
+                            "script_vkh1qupquyc7quzp6zs7qsrqkyq5zqxqxzqtqs8svysppg8jqcph22d",
+                            "script_vkh1qqdpz9swqsdpwrgzpur3xzqepqrsvyspqvxpvrcjpsyq5rzf0qn",
+                            "script_vkh1zurqz9ckquyscpquzcdqzyqcpswq7qcvquysqyqnzs93vhjzexn",
+                            "script_vkh1yq2sspcfzsgsw9scrcppxygszvspyxccyq9s58gkzygszrmqgp6",
+                            "script_vkh1ryx3c8chq59pczqtpsg3crqnpvpsqrqyrs9szxqxrq8s5l79vqf",
+                            "script_vkh1zyy3kycjqvxq5yq6psy3wpcjrgxsy8eqpct3vqc0quwsu02ejkr",
+                            "script_vkh1qyrq28gqpy0pgrc7rgfpqqqmzqgswyg3qytqcrslpqvp744kp9n"
+                        ]
+                    },
+                    {
+                        "some": {
+                            "from": [
+                                "script_vkh1qurq5xqzyqrpspsgp5dqjxcwqvw3vrckpsf3s9syqv2pu6eaqhd",
+                                "script_vkh1pqd3kzgmpy2swpslqq9ps8q2pu8pkzsspvd3qqc9zvxsgkdtrwa",
+                                "script_vkh1rsg37ycxzupsv8qqqc9qjxqjpu23xpsgzugqkrcqqcdjqafwqvg",
+                                "script_vkh1zsvskrcnrqsqqqczrypsqqqzpvppgzqhr5tquyc2q5fqvvdyh0y",
+                                "script_vkh1rs2pgpgmz523z8s9pcfqkx3qzy8szps6pyqqg9c3r5r3q48zmnh",
+                                "script_vkh1pvgpjqsspgg32qcfqc0qv8g9qc0qurgnqgr37qgeqcyqkymhpxw",
+                                "script_vkh1rvz32gqqqcqqwzgqqg0pqpqargzqzzqtqy2syrs3qq0pv2gcnuw"
+                            ],
+                            "at_least": 3
+                        }
+                    },
+                    {
+                        "any": [
+                            "script_vkh1q5f3gy3qrs2pwyqspggp29pqquqsgqq6ryvsyycjrs0q59tycuu",
+                            "script_vkh1zgx35pgzpgqq7rqwzv93uqsypqg3u9slpgypyygwp5pscr47eqs"
+                        ]
+                    },
+                    {
+                        "any": [
+                            "script_vkh1zvvzqrsnzvpq5rstpgvsj8qdqgtsxqchzu0q7xs2zqtqc02sl3h"
+                        ]
+                    },
+                    {
+                        "any": [
+                            "script_vkh1q58pzrqqpuzsyqc3zqdp7qqjpuvpsygyqs9sjxggpcvssex76aj",
+                            "script_vkh1zvtpz8sqpv2qjxcfzv2skpgrzgdsgycjzq93gps4rgtzqq93cg3",
+                            "script_vkh1zcdquqseryt3v9cxrsw3vrgmqgdqcys0zvdpc9qfpvsqcuyvnzl"
+                        ]
+                    }
+                ],
+                "at_least": 3
+            }
+        },
+        {
+            "any": [
+                {
+                    "any": [
+                        "script_vkh1pu9pcxcaqvzpkqqyzq03u8gszsv3wpcpqyxp5zggpsy36c9h3mu",
+                        "script_vkh1qqfqzpgxpq8pk8svrq2q5ycrru8sxgq2rgfqsxqwpu2pjxqmc5j"
+                    ]
+                },
+                {
+                    "any": [
+                        "script_vkh1rvpq7yssrgqpqzclp50skqsmpgqssygapct3qgq9ruyp265804p",
+                        "script_vkh1zuvs78c4z5fqxqsdrvgp6rckr5gsugqkryts2pcjrs0qujeyhfc",
+                        "script_vkh1zytq6xcjpsxq69cwpc03y8g5quw3kxc8quspkzskzcqsqgvtx4l",
+                        "script_vkh1z5gsgqpqquy35pc0rcvqwpscp5sqyqsmpgyqwps0z5g35ka02h6",
+                        "script_vkh1rgt36zg8qc2pu9cepvds78slrvdp7zc9qgpqx8qwqctqv5k6m2m",
+                        "script_vkh1pvxqcxczzydpu8sdp5rpkgqmqqps7ygapsdzq9s9qv9q2t4vvml",
+                        "script_vkh1rgp328sazu032qggzuf3qzq8zuxzqzsmqvx3g9sgpsgqj9ewdk0",
+                        "script_vkh1pvfqyxglqvzp7rq8yqv3sxsfpvpzqpcsqctp5rg7qvqjqrtnj3y"
+                    ]
+                },
+                {
+                    "some": {
+                        "from": [
+                            {
+                                "all": [
+                                    "script_vkh1zs03xqckpg03w9qjqq8svpc4zyppqrcurq8s29qryqgp206ykw9",
+                                    "script_vkh1psfqsqguzgspyzg5zysp6ps6zqt3qxg4qqrpupsgzsg3sara0x6",
+                                    "script_vkh1pq2329fqq59su9gvpu8qwgq3qqv3qpsqzszpwpg0pgx3xwc5px2",
+                                    "script_vkh1rsp35xq6rufqwqpqrqtqyyc8qvfqkzssyqyqw8qapcr3c87h742",
+                                    "script_vkh1pcd3cgqfzu2q78s2rv2pv8s2rv2s78gmzsg3g8gnzcr3j09jpcj",
+                                    "script_vkh1zgz3jxgtpyx3w9qdz5d3c9g4qgpp6psequvsjxslqctqu92rfny"
+                                ]
+                            }
+                        ],
+                        "at_least": 1
+                    }
+                },
+                {
+                    "some": {
+                        "from": [
+                            "script_vkh1pqsqx8qvpcvs2yqur5q3urgkqct3vgqfpgrpyqqxqctsvxhhzrs",
+                            "script_vkh1psxs6xqrrqws29c0rssqxpcgzy8q7gq6p58p59s9zu9pkvv09a7",
+                            "script_vkh1yq8q5xc3rvrqcqfqqqp3czq4p5vpg9gjryrsczqaqyqs748666f",
+                            "script_vkh1pvwsqqqpzspqqpqyzqw32rcspuyp2rqxqvvsszg8qctqxf8r8q2",
+                            "script_vkh1rgys7ygfqsxzqxcgpsgqu9c3ps83vqc5pc0skzqsquvpc70m40m"
+                        ],
+                        "at_least": 3
+                    }
+                }
+            ]
+        }
+    ]
+}

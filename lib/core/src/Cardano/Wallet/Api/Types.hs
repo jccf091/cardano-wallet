@@ -44,6 +44,7 @@ module Cardano.Wallet.Api.Types
 
     -- * API Types
     , ApiAddress (..)
+    , ApiScript (..)
     , ApiCertificate (..)
     , ApiEpochInfo (..)
     , ApiSelectCoinsData (..)
@@ -384,6 +385,10 @@ fmtAllowedWords =
 data ApiAddress (n :: NetworkDiscriminant) = ApiAddress
     { id :: !(ApiT Address, Proxy n)
     , state :: !(ApiT AddressState)
+    } deriving (Eq, Generic, Show)
+
+newtype ApiScript = ApiScript
+    { script :: ApiT Script
     } deriving (Eq, Generic, Show)
 
 data ApiEpochInfo = ApiEpochInfo
@@ -1311,10 +1316,10 @@ instance (PassphraseMaxLength purpose, PassphraseMinLength purpose)
 instance ToJSON (ApiT (Passphrase purpose)) where
     toJSON = toJSON . toText . getApiT
 
-instance FromJSON (ApiT Script) where
-    parseJSON = fmap ApiT . parseJSON
-instance ToJSON (ApiT Script) where
-    toJSON (ApiT script) = toJSON script
+instance FromJSON ApiScript where
+    parseJSON = fmap (ApiScript . ApiT) . parseJSON
+instance ToJSON ApiScript where
+    toJSON (ApiScript (ApiT script')) = toJSON script'
 
 instance MkSomeMnemonic sizes => FromJSON (ApiMnemonicT sizes)
   where

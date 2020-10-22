@@ -322,89 +322,28 @@ x-poolMetadataSource: &poolMetadataSource
       example: https://smash.cardano-mainnet.iohk.io/
 
 x-walletCredentialPubkey: &walletCredentialPubkey
-  description: An extended public key (public key + chain code) for credential
-  type: string
-  format: bech32
-  example: xpub13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
-
-x-verificationKeyHash: &verificationKeyHash
-  description: A verification key hash
-  type: string
-  format: base16
-  minLength: 56
-  maxLength: 56
-  example: 1423856bc91c49e928f6f30f4e8d665d53eb4ab6028bd0ac971809d5
-
-x-requireKeyHash: &requireKeyHash
-  description: Require key hash
-  type: object
-  required:
-    - key
-  properties:
-    key:
-      <<: *verificationKeyHash
-      description: key hash
-
-x-requireAll: &requireAll
-  description: Require all
-  type: object
-  required:
-    - all
-  properties:
-    all:
-      type: array
-      minItems: 1
-      items: *walletCredentialScript
-
-x-requireAny: &requireAny
-  description: Require any
-  type: object
-  required:
-    - any
-  properties:
-    any:
-      type: array
-      minItems: 1
-      items: *walletCredentialScript
-
-x-requireM: &requireM
-  description: Require any
-  type: object
-  required:
-    - from
-    - m
-  properties:
-    from:
-      type: array
-      minItems: 1
-      items: *walletCredentialScript
-    m:
-      type: integer
-      minimum: 1
-
-x-walletCredentialScript: &walletCredentialScript
-  description: A script object
-  type: object
+  description: A public key (public key without chain code) for credential
   oneOf:
-    - <<: *requireKeyHash
-      title: require key hash
-    - <<: *requireAll
-      title: require all of list
-    - <<: *requireAny
-      title: require any of list
-    - <<: *requireM
-      title: require m of list
+    - title: Payment public key
+      type: string
+      format: bech32
+      example: addr_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
+    - title: Stake public key
+      type: string
+      format: bech32
+      example: stake_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
 
 x-credential: &credential
   description: |
-    Credential that could act in spending or staking.
+    Credential that could act in as spending or staking credential.
     Could be either public key or script.
-  type: object
   oneOf:
-    - <<: *walletCredentialScript
-      title: script
-    - <<: *walletCredentialPubkey
-      title: public key
+    - title: Key Credential
+      <<: *walletCredentialPubkey
+    - title: Script Credential
+      type: object
+      additionalProperties:
+        $ref: "#/components/schemas/ApiScript"
 
 x-settings: &settings
   description: Settings
@@ -1755,6 +1694,52 @@ components:
       properties:
         passphrase: *lenientPassphrase
         address_index: *addressIndex
+
+    ApiScript: &ApiScript
+      oneOf:
+        - title: Require Key Hash
+          type: string
+          format: bech32
+          example: script_vkh1wqaz0q0zhtxlgn0ewssevn2mrtm30fgh2g7hr7z9rj5856457mm
+
+        - title: Require All
+          type: object
+          required:
+            - all
+          properties:
+            all:
+              type: array
+              items:
+                $ref: "#/components/schemas/ApiScript"
+
+        - title: Require Any
+          type: object
+          required:
+            - any
+          properties:
+            any:
+              type: array
+              items:
+                $ref: "#/components/schemas/ApiScript"
+
+        - title: Require Some
+          type: object
+          required:
+            - some
+          properties:
+            some:
+              type: object
+              required:
+                - at_least
+                - from
+              properties:
+                at_least:
+                  type: integer
+                  minimum: 1
+                from:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/ApiScript"
 
     TransactionMetadataValue: &TransactionMetadataValue
       oneOf:

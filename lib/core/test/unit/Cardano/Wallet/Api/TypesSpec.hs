@@ -269,7 +269,6 @@ import Test.QuickCheck
     ( Arbitrary (..)
     , Gen
     , InfiniteList (..)
-    , Positive (..)
     , applyArbitrary2
     , applyArbitrary4
     , arbitraryBoundedEnum
@@ -282,8 +281,6 @@ import Test.QuickCheck
     , property
     , scale
     , shrinkIntegral
-    , sized
-    , suchThat
     , vector
     , vectorOf
     , (.&&.)

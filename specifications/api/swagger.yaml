@@ -335,14 +335,36 @@ x-walletCredentialPubkey: &walletCredentialPubkey
 
 x-script: &script
   description: |
-    Script allows to ..
+    Script allows establishing either spending or staking guard that could be removed
+    when a special combination of signing keys is present.
+
+    The script can be constructed using four primitives:
+     - verification key hash for which a corresponding signing key is expected
+     - all condition for which all list elements' expectation are met for the condition to be valid
+     - any condition for which any list element' expectation is to be met for the condition to be valid
+     - some condition for which a minimal number of list elements' expectation is to be met for the condition to be valid
+    example:
+      0: "script_vkh18srsxr3khll7vl3w9mqfu55n6wzxxlxj7qzr2mhnyreluzt36ms"
+      1: { "all": [ "script_vkh18srsxr3khll7vl3w9mqfu55n6wzxxlxj7qzr2mhnyreluzt36ms"
+                  , "script_vkh18srsxr3khll7vl3w9mqfu55n6wzxxlxj7qzr2mhnyreluzt37ms"] }
+      2: { "all": [ "script_vkh18srsxr3khll7vl3w9mqfu55n6wzxxlxj7qzr2mhnyreluzt36ms"
+                  , { "any" : [ "script_vkh18srsxr3khll7vl3w9mqfu55n6wzxxlxj7qzr2mhnyreluzt37ms"
+                              , "script_vkh18srsxr3khll7vl3w9mqfu55n6wzxxlxj7qzr2mhnyreluzt38ms"] }
+                  ] }
+      3: { "all": [ "script_vkh18srsxr3khll7vl3w9mqfu55n6wzxxlxj7qzr2mhnyreluzt36ms"
+                  , { "some" : { "from" : [ "script_vkh18srsxr3khll7vl3w9mqfu55n6wzxxlxj7qzr2mhnyreluzt37ms"
+                                          , "script_vkh18srsxr3khll7vl3w9mqfu55n6wzxxlxj7qzr2mhnyreluzt38ms"]
+                               , "at_least" : 2
+                               }
+                    } ] }
+
   nullable: false
   additionalProperties:
     $ref: "#/components/schemas/ScriptValue"
 
 x-credential: &credential
   description: |
-    Credential that could act in as spending or staking credential.
+    Credential that could act as either spending or staking credential.
     Could be either public key or script.
   oneOf:
     - title: Key Credential
@@ -695,13 +717,6 @@ x-signedTransactionBlob: &signedTransactionBlob
   description: Signed transaction message binary blob.
   type: string
   format: binary
-
-x-addressParts: &addressParts
-  description: Address credentials.
-  type: object
-  properties:
-    payment_credential: *credential
-    stake_credential: *credential
 
 x-transactionStatus: &transactionStatus
   description: |
@@ -1520,6 +1535,12 @@ components:
       properties:
         script: *script
 
+    ApiCredentials: &ApiCredentials
+      type: object
+      properties:
+        payment_credential: *credential
+        stake_credential: *credential
+
     ApiByronWalletRandomPostData: &ApiByronWalletRandomPostData
       type: object
       required:
@@ -1712,7 +1733,7 @@ components:
         - title: Require Key Hash
           type: string
           format: bech32
-          example: script_vkh1wqaz0q0zhtxlgn0ewssevn2mrtm30fgh2g7hr7z9rj5856457mm
+          example: script_vkh18srsxr3khll7vl3w9mqfu55n6wzxxlxj7qzr2mhnyreluzt36ms
 
         - title: Require All
           type: object
@@ -3291,7 +3312,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: *addressParts
+            schema: *ApiCredentials
       responses: *responsesPostAddress
 
   /settings:

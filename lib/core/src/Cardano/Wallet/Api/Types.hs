@@ -1319,7 +1319,7 @@ instance ToJSON (ApiT (Passphrase purpose)) where
 instance FromJSON ApiScript where
     parseJSON =  withObject "Script" $ \o -> do
         script' <- o .: "script"
-        fmap (ApiScript . ApiT) $ parseJSON script'
+        (ApiScript . ApiT) <$> parseJSON script'
 instance ToJSON ApiScript where
     toJSON (ApiScript (ApiT script')) =
         object ["script" .= toJSON script']

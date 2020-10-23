@@ -333,6 +333,13 @@ x-walletCredentialPubkey: &walletCredentialPubkey
       format: bech32
       example: stake_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
 
+x-script: &script
+  description: |
+    Script allows to ..
+  nullable: false
+  additionalProperties:
+    $ref: "#/components/schemas/ScriptValue"
+
 x-credential: &credential
   description: |
     Credential that could act in as spending or staking credential.
@@ -341,9 +348,7 @@ x-credential: &credential
     - title: Key Credential
       <<: *walletCredentialPubkey
     - title: Script Credential
-      type: object
-      additionalProperties:
-        $ref: "#/components/schemas/ApiScript"
+      <<: *script
 
 x-settings: &settings
   description: Settings
@@ -1508,6 +1513,13 @@ components:
           passphrase: *lenientPassphrase
           metadata: *transactionMetadata
 
+    ApiScript: &ApiScript
+      type: object
+      required:
+        - script
+      properties:
+        script: *script
+
     ApiByronWalletRandomPostData: &ApiByronWalletRandomPostData
       type: object
       required:
@@ -1695,7 +1707,7 @@ components:
         passphrase: *lenientPassphrase
         address_index: *addressIndex
 
-    ApiScript: &ApiScript
+    ScriptValue: &ScriptValue
       oneOf:
         - title: Require Key Hash
           type: string
@@ -1709,8 +1721,9 @@ components:
           properties:
             all:
               type: array
+              minItems: 1
               items:
-                $ref: "#/components/schemas/ApiScript"
+                $ref: "#/components/schemas/ScriptValue"
 
         - title: Require Any
           type: object
@@ -1719,8 +1732,9 @@ components:
           properties:
             any:
               type: array
+              minItems: 1
               items:
-                $ref: "#/components/schemas/ApiScript"
+                $ref: "#/components/schemas/ScriptValue"
 
         - title: Require Some
           type: object
@@ -1738,8 +1752,9 @@ components:
                   minimum: 1
                 from:
                   type: array
+                  minItems: 1
                   items:
-                    $ref: "#/components/schemas/ApiScript"
+                    $ref: "#/components/schemas/ScriptValue"
 
     TransactionMetadataValue: &TransactionMetadataValue
       oneOf:

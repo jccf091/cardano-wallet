@@ -975,28 +975,27 @@ instance Arbitrary ApiEpochInfo where
 
 instance Arbitrary ApiScript where
     arbitrary = ApiScript . ApiT <$> arbitrary
-    shrink = genericShrink
 
 instance Arbitrary Script where
-    arbitrary = Test.QuickCheck.scale (`div` 3) $ sized scriptTree
-      where
-        scriptTree 0 = RequireSignatureOf <$> arbitrary
-        scriptTree n = do
-            Positive m <- arbitrary `suchThat` (> (Positive 0))
-            let n' = n `div` (m + 1)
-            scripts <- vectorOf m (scriptTree n') `suchThat` (\v -> length v > 0)
-            atLeast <- choose (1, fromIntegral (m + 1))
-            elements
-                [ RequireAllOf scripts
-                , RequireAnyOf scripts
-                , RequireSomeOf atLeast scripts
-                ]
-    shrink = genericShrink
-
-instance Arbitrary KeyHash where
-    -- always generate valid hashes, because json decoding will immediately fail
-    -- on these.
-    arbitrary = KeyHash . BS.pack <$> vectorOf 28 arbitrary
+    arbitrary = do
+        reqAllGen <- do
+            n <- choose (1,10)
+            pure $ RequireAllOf <$> vector n
+        reqAnyGen <- do
+            n <- choose (1,10)
+            pure $ RequireAnyOf <$> vector n
+        reqMofNGen <- do
+            m <- choose (2,5)
+            n <- choose ((fromInteger $ toInteger m),10)
+            pure $ RequireSomeOf m <$> vector n
+        let reqSig =
+                (RequireSignatureOf . KeyHash . BS.pack) <$> replicateM 28 arbitrary
+        oneof
+            (replicate 15 reqSig ++
+            [ reqAllGen
+            , reqAnyGen
+            , reqMofNGen
+            ])
 
 instance Arbitrary (ApiSelectCoinsPayments n) where
     arbitrary = genericArbitrary
@@ -1836,7 +1835,9 @@ instance ToSchema ApiNetworkClock where
     declareNamedSchema _ = declareSchemaForDefinition "ApiNetworkClock"
 
 instance ToSchema ApiScript where
-    declareNamedSchema _ = declareSchemaForDefinition "ApiScript"
+    declareNamedSchema _ = do
+        addDefinition scriptValueSchema
+        declareSchemaForDefinition "ApiScript"
 
 instance ToSchema ApiNetworkParameters where
     declareNamedSchema _ = declareSchemaForDefinition "ApiNetworkParameters"
@@ -1875,6 +1876,11 @@ instance ToSchema ApiWalletSignData where
 transactionMetadataValueSchema :: NamedSchema
 transactionMetadataValueSchema =
     NamedSchema (Just "TransactionMetadataValue") $ mempty
+        & additionalProperties ?~ AdditionalPropertiesAllowed True
+
+scriptValueSchema :: NamedSchema
+scriptValueSchema =
+    NamedSchema (Just "ScriptValue") $ mempty
         & additionalProperties ?~ AdditionalPropertiesAllowed True
 
 -- | Utility function to provide an ad-hoc 'ToSchema' instance for a definition:

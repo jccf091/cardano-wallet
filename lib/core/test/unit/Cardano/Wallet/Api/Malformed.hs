@@ -262,18 +262,10 @@ instance Malformed (BodyParam ApiWalletSignData) where
 
 instance Malformed (BodyParam ApiScript) where
     malformed = first BodyParam <$>
-        [ ( ""
-          , "not enough input"
-          )
-        , ( Aeson.encode [aesonQQ|
-            { "all": []
+        [ ( Aeson.encode [aesonQQ|
+            { "something": []
             }|]
-          , "Error in $.all: The JSON metadata top level must be a map (JSON object) from word to value."
-          )
-        , ( Aeson.encode [aesonQQ|
-            { "any": []
-            }|]
-          , "Error in $.any: The JSON metadata top level must be a map (JSON object) from word to value."
+          , "Error in $: key 'script' not found"
           )
         ]
 

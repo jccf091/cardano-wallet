@@ -49,6 +49,7 @@ library
     , deepseq
     , digest
     , directory
+    , either
     , exceptions
     , extra
     , fast-logger
@@ -197,7 +198,6 @@ test-suite unit
     , cardano-api
     , cardano-crypto
     , cardano-wallet-core
-    , ouroboros-consensus
     , cardano-wallet-launcher
     , cardano-wallet-test-utils
     , cardano-slotting
@@ -229,6 +229,7 @@ test-suite unit
     , network-uri
     , persistent
     , OddWord
+    , ouroboros-consensus
     , QuickCheck
     , quickcheck-state-machine >= 0.6.0
     , random

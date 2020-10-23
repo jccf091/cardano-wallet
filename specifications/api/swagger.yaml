@@ -321,10 +321,11 @@ x-poolMetadataSource: &poolMetadataSource
       format: uri
       example: https://smash.cardano-mainnet.iohk.io/
 
-x-walletCredentialPubkey: &walletCredentialPubkey
-  description: A public key (public key without chain code) for credential
+x-credentialPubKey: &credentialPubKey
+  description: A public key (public key without chain code) for credential - 32 bytes
   type: string
   format: bech32
+  pattern: "^((addr_vk)|(stake_vk))1[0-9a-z]*$"
   example:
     0: addr_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
     1: stake_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
@@ -1179,7 +1180,6 @@ components:
         minimum_utxo_value: *amount
         hardfork_at: *epochInfo
 
-
     ApiSelectCoinsPayments: &ApiSelectCoinsPayments
       type: object
       required:
@@ -1521,13 +1521,16 @@ components:
       properties:
         script: *script
 
+    ApiPubKey: &ApiPubKey
+      type: object
+      required:
+        - pub_key
+      properties:
+        pub_key: *credentialPubKey
+
     ApiCredential: &ApiCredential
       oneOf:
-        - type: object
-          required:
-            - key
-          properties:
-            key: *walletCredentialPubkey
+        - <<: *ApiPubKey
         - <<: *ApiScript
 
     ApiCredentials: &ApiCredentials

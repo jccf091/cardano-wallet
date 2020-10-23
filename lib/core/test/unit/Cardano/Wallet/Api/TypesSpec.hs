@@ -55,7 +55,6 @@ import Cardano.Wallet.Api.Types
     , ApiCoinSelectionChange (..)
     , ApiCoinSelectionInput (..)
     , ApiCoinSelectionOutput (..)
-    , ApiCredential (..)
     , ApiCredentials (..)
     , ApiEpochInfo (..)
     , ApiFee (..)
@@ -65,6 +64,8 @@ import Cardano.Wallet.Api.Types
     , ApiNetworkParameters (..)
     , ApiNtpStatus (..)
     , ApiPostRandomAddressData
+    , ApiPubKey (..)
+    , ApiPubKey
     , ApiPutAddressesData (..)
     , ApiScript (..)
     , ApiSelectCoinsAction (..)
@@ -97,6 +98,7 @@ import Cardano.Wallet.Api.Types
     , ByronWalletPostData (..)
     , ByronWalletPutPassphraseData (..)
     , ByronWalletStyle (..)
+    , Credential (..)
     , DecodeAddress (..)
     , DecodeStakeAddress (..)
     , EncodeAddress (..)
@@ -328,7 +330,8 @@ spec = do
         \and match existing golden files" $ do
             jsonRoundtripAndGolden $ Proxy @(ApiAddress ('Testnet 0))
             jsonRoundtripAndGolden $ Proxy @ApiScript
-            jsonRoundtripAndGolden $ Proxy @ApiCredential
+            jsonRoundtripAndGolden $ Proxy @ApiPubKey
+            jsonRoundtripAndGolden $ Proxy @Credential
             jsonRoundtripAndGolden $ Proxy @ApiCredentials
             jsonRoundtripAndGolden $ Proxy @(ApiT DerivationIndex)
             jsonRoundtripAndGolden $ Proxy @ApiEpochInfo
@@ -997,6 +1000,27 @@ instance Arbitrary Script where
             , reqAnyGen
             , reqMofNGen
             ])
+
+instance Arbitrary ApiPubKey where
+    arbitrary =
+        (ApiPubKey . BS.pack) <$> replicateM 32 arbitrary
+
+instance Arbitrary Credential where
+    arbitrary = do
+        let pubKeyGen = arbitrary :: Gen ApiPubKey
+        let scriptGen = arbitrary :: Gen ApiScript
+        oneof [ Credential . Left <$> pubKeyGen
+              , Credential . Right <$> scriptGen ]
+
+instance Arbitrary ApiCredentials where
+    arbitrary = do
+        credential1 <- arbitrary
+        credential2 <- arbitrary
+        oneof
+            [ pure $ ApiCredentials (Just credential1) Nothing
+            , pure $ ApiCredentials Nothing (Just credential1)
+            , pure $ ApiCredentials (Just credential1) (Just credential2)
+            ]
 
 instance Arbitrary (ApiSelectCoinsPayments n) where
     arbitrary = genericArbitrary
@@ -1839,6 +1863,27 @@ instance ToSchema ApiScript where
     declareNamedSchema _ = do
         addDefinition scriptValueSchema
         declareSchemaForDefinition "ApiScript"
+
+instance ToSchema ApiPubKey where
+    declareNamedSchema _ = declareSchemaForDefinition "ApiPubKey"
+
+instance ToSchema ApiCredentials where
+    declareNamedSchema _ = do
+        addDefinition scriptValueSchema
+        declareSchemaForDefinition "ApiCredentials"
+
+instance ToSchema Credential where
+    declareNamedSchema _ = do
+        addDefinition scriptValueSchema
+        NamedSchema _ pubKey' <- declareNamedSchema (Proxy @ApiPubKey)
+        NamedSchema _ script'  <- declareNamedSchema (Proxy @ApiScript)
+        pure $ NamedSchema Nothing $ mempty
+            & type_ .~ Just SwaggerObject
+            & required .~ []
+            & properties .~ mconcat
+                [ pubKey' ^. properties
+                , script' ^. properties
+                ]
 
 instance ToSchema ApiNetworkParameters where
     declareNamedSchema _ = declareSchemaForDefinition "ApiNetworkParameters"

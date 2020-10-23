@@ -323,15 +323,11 @@ x-poolMetadataSource: &poolMetadataSource
 
 x-walletCredentialPubkey: &walletCredentialPubkey
   description: A public key (public key without chain code) for credential
-  oneOf:
-    - title: Payment public key
-      type: string
-      format: bech32
-      example: addr_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
-    - title: Stake public key
-      type: string
-      format: bech32
-      example: stake_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
+  type: string
+  format: bech32
+  example:
+    0: addr_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
+    1: stake_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
 
 x-script: &script
   description: |
@@ -361,16 +357,6 @@ x-script: &script
   nullable: false
   additionalProperties:
     $ref: "#/components/schemas/ScriptValue"
-
-x-credential: &credential
-  description: |
-    Credential that could act as either spending or staking credential.
-    Could be either public key or script.
-  oneOf:
-    - title: Key Credential
-      <<: *walletCredentialPubkey
-    - title: Script Credential
-      <<: *script
 
 x-settings: &settings
   description: Settings
@@ -1535,11 +1521,21 @@ components:
       properties:
         script: *script
 
+    ApiCredential: &ApiCredential
+      oneOf:
+        - type: object
+          required:
+            - key
+          properties:
+            key: *walletCredentialPubkey
+        - <<: *ApiScript
+
     ApiCredentials: &ApiCredentials
       type: object
+      nullable: false
       properties:
-        payment_credential: *credential
-        stake_credential: *credential
+        spending: *ApiCredential
+        staking: *ApiCredential
 
     ApiByronWalletRandomPostData: &ApiByronWalletRandomPostData
       type: object

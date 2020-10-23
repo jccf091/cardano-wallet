@@ -55,6 +55,8 @@ import Cardano.Wallet.Api.Types
     , ApiCoinSelectionChange (..)
     , ApiCoinSelectionInput (..)
     , ApiCoinSelectionOutput (..)
+    , ApiCredential (..)
+    , ApiCredentials (..)
     , ApiEpochInfo (..)
     , ApiFee (..)
     , ApiMnemonicT (..)
@@ -326,6 +328,8 @@ spec = do
         \and match existing golden files" $ do
             jsonRoundtripAndGolden $ Proxy @(ApiAddress ('Testnet 0))
             jsonRoundtripAndGolden $ Proxy @ApiScript
+            jsonRoundtripAndGolden $ Proxy @ApiCredential
+            jsonRoundtripAndGolden $ Proxy @ApiCredentials
             jsonRoundtripAndGolden $ Proxy @(ApiT DerivationIndex)
             jsonRoundtripAndGolden $ Proxy @ApiEpochInfo
             jsonRoundtripAndGolden $ Proxy @(ApiSelectCoinsData ('Testnet 0))

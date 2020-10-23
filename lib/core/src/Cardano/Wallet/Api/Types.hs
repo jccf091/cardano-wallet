@@ -45,6 +45,8 @@ module Cardano.Wallet.Api.Types
     -- * API Types
     , ApiAddress (..)
     , ApiScript (..)
+    , ApiCredentials (..)
+    , Credential (..)
     , ApiCertificate (..)
     , ApiEpochInfo (..)
     , ApiSelectCoinsData (..)
@@ -389,6 +391,16 @@ data ApiAddress (n :: NetworkDiscriminant) = ApiAddress
 
 newtype ApiScript = ApiScript
     { script :: ApiT Script
+    } deriving (Eq, Generic, Show)
+
+data Credential =
+      FromKey Text
+    | FromScript ApiScript
+     deriving (Eq, Generic, Show)
+
+data ApiCredentials = ApiCredentials
+    { spending :: !(Maybe Credential)
+    , staking :: !(Maybe Credential)
     } deriving (Eq, Generic, Show)
 
 data ApiEpochInfo = ApiEpochInfo
@@ -1323,6 +1335,41 @@ instance FromJSON ApiScript where
 instance ToJSON ApiScript where
     toJSON (ApiScript (ApiT script')) =
         object ["script" .= toJSON script']
+
+instance FromJSON Credential where
+    parseJSON val = flip (withObject "DelegationAction") val $ \o -> do
+        k <- o .:? "key"
+        case k of
+            Just txt -> pure $ FromKey txt
+            Nothing -> FromScript <$> parseJSON val
+instance ToJSON Credential where
+    toJSON (FromKey key') = object [ "key" .= toJSON key']
+    toJSON (FromScript script') = toJSON script'
+
+instance FromJSON ApiCredentials where
+    parseJSON = withObject "ApiCredentials" $ \obj -> do
+        choice <- (,) <$> obj .:? "spending" <*> obj .:? "staking"
+        case choice of
+            (Nothing, Nothing) -> fail "ApiCredentials must have at least one credential."
+            (Just c, Nothing) -> do
+                spending' <- parseJSON c
+                pure $ ApiCredentials (Just spending') Nothing
+            (Nothing, Just c) -> do
+                staking' <- parseJSON c
+                pure $ ApiCredentials Nothing (Just staking')
+            (Just c1, Just c2) -> do
+                spending' <- parseJSON c1
+                staking' <- parseJSON c2
+                pure $ ApiCredentials (Just spending') (Just staking')
+instance ToJSON ApiCredentials where
+    toJSON (ApiCredentials Nothing Nothing) =
+        error "ApiCredentials must have at least one credential."
+    toJSON (ApiCredentials (Just spending') Nothing) =
+        object [ "spending" .= toJSON spending']
+    toJSON (ApiCredentials Nothing (Just staking')) =
+        object [ "staking" .= toJSON staking']
+    toJSON (ApiCredentials (Just spending') (Just staking')) =
+        object [ "spending" .= toJSON spending', "staking" .= toJSON staking']
 
 instance MkSomeMnemonic sizes => FromJSON (ApiMnemonicT sizes)
   where

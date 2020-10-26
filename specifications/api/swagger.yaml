@@ -330,6 +330,11 @@ x-credentialPubKey: &credentialPubKey
     0: addr_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
     1: stake_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
 
+x-credential: &credential
+  nullable: false
+  additionalProperties:
+    $ref: "#/components/schemas/CredentialValue"
+
 x-script: &script
   description: |
     Script allows establishing either spending or staking guard that could be removed
@@ -1529,9 +1534,7 @@ components:
         pub_key: *credentialPubKey
 
     ApiCredential: &ApiCredential
-      oneOf:
-        - <<: *ApiPubKey
-        - <<: *ApiScript
+      <<: *credential
 
     ApiCredentials: &ApiCredentials
       type: object
@@ -1726,6 +1729,11 @@ components:
       properties:
         passphrase: *lenientPassphrase
         address_index: *addressIndex
+
+    CredentialValue: &CredentialValue
+      oneOf:
+        - <<: *ApiPubKey
+        - <<: *ApiScript
 
     ScriptValue: &ScriptValue
       oneOf:

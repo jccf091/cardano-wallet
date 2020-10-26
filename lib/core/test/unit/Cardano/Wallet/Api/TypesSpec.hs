@@ -1870,6 +1870,7 @@ instance ToSchema ApiPubKey where
 instance ToSchema ApiCredentials where
     declareNamedSchema _ = do
         addDefinition scriptValueSchema
+        addDefinition credentialValueSchema
         declareSchemaForDefinition "ApiCredentials"
 
 instance ToSchema Credential where
@@ -1927,6 +1928,11 @@ transactionMetadataValueSchema =
 scriptValueSchema :: NamedSchema
 scriptValueSchema =
     NamedSchema (Just "ScriptValue") $ mempty
+        & additionalProperties ?~ AdditionalPropertiesAllowed True
+
+credentialValueSchema :: NamedSchema
+credentialValueSchema =
+    NamedSchema (Just "CredentialValue") $ mempty
         & additionalProperties ?~ AdditionalPropertiesAllowed True
 
 -- | Utility function to provide an ad-hoc 'ToSchema' instance for a definition:

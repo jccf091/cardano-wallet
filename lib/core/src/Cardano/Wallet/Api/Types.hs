@@ -418,7 +418,7 @@ data ApiCredentials = ApiCredentials
 data AnyAddressType =
       EnterpriseDelegating
     | RewardAccount
-    deriving (Eq, Show)
+    deriving (Eq, Show, Bounded, Enum)
 
 data AnyAddress = AnyAddress
     { payload :: ByteString
@@ -1409,7 +1409,15 @@ instance ToJSON ApiCredentials where
         object [ "spending" .= toJSON spending', "staking" .= toJSON staking']
 
 instance FromJSON AnyAddress where
-    parseJSON = parseJSON >=> eitherToParser . first ShowFmt . fromText
+    parseJSON = withObject "ApiCredentials" $ \obj -> do
+        addr <- obj .:? "address"
+        case addr of
+            Nothing ->
+                fail "AnyAddress expects 'address' key"
+            Just addr' -> case fromText addr' of
+                Right anyAddr -> pure anyAddr
+                Left (TextDecodingError err) -> fail err
+
 instance ToJSON AnyAddress where
     toJSON (AnyAddress p addrType net) = do
         let hrp = case (addrType, net) of
@@ -1417,8 +1425,8 @@ instance ToJSON AnyAddress where
                 (RewardAccount, 1) -> [Bech32.humanReadablePart|stake|]
                 (EnterpriseDelegating, 0) -> [Bech32.humanReadablePart|addr_test|]
                 (RewardAccount, 0) -> [Bech32.humanReadablePart|stake_test|]
-                _ -> error "Wrong network tag"
-        String $ T.decodeUtf8 $ encode (EBech32 hrp) p
+                _ -> error "Wrong network tag in AnyAddress"
+        object [ "address" .= (String $ T.decodeUtf8 $ encode (EBech32 hrp) p)]
 
 instance MkSomeMnemonic sizes => FromJSON (ApiMnemonicT sizes)
   where

@@ -330,6 +330,15 @@ x-credentialPubKey: &credentialPubKey
     0: addr_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
     1: stake_vk13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
 
+x-anyAddress: &anyAddress
+  description: A Shelley address representing either enterprise, reward account or delegating address
+  type: string
+  format: bech32
+  pattern: "^((addr)|(stake)|(addr_test)|(stake_test))1[0-9a-z]*$"
+  example:
+    0: addr13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
+    1: stake_test13pfp60uf4ru7cmj5d57xjdzj6lagn328ah67h35urqrl92jn094z0s07fcy2pvfw3xfhna6fa24na8nk6lraymjcrl5wwj6chsjqtjqlfw44z
+
 x-credential: &credential
   nullable: false
   additionalProperties:
@@ -1533,6 +1542,13 @@ components:
       properties:
         pub_key: *credentialPubKey
 
+    AnyAddress: &AnyAddress
+      type: object
+      required:
+        - address
+      properties:
+        address: *anyAddress
+
     ApiCredential: &ApiCredential
       <<: *credential
 
@@ -2293,7 +2309,7 @@ x-responsesPostAnyAddress: &responsesPostAnyAddress
     description: Accepted
     content:
       application/json:
-        schema: *ApiAddress
+        schema: *AnyAddress
 
 x-responsesPostTransactionFee: &responsesPostTransactionFee
   <<: *responsesErr400

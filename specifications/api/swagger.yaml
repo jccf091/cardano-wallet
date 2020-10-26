@@ -2284,7 +2284,7 @@ x-responsesPostExternalTransaction: &responsesPostExternalTransaction
       application/json:
         schema: *ApiTxId
 
-x-responsesPostAddress: &responsesPostAddress
+x-responsesPostAnyAddress: &responsesPostAnyAddress
   <<: *responsesErr400
   <<: *responsesErr405
   <<: *responsesErr406
@@ -3309,18 +3309,18 @@ paths:
 
   /addresses:
     post:
-      operationId: postAddress
+      operationId: postAnyAddress
       tags: ["Utils"]
       summary: Construct Address
       description: |
         <p align="right">status: <strong>unstable</strong></p>
 
-        Construct an address by specyfying credential for payment or stake.
+        Construct any address by specyfying credential for payment or stake.
       requestBody:
         content:
           application/json:
             schema: *ApiCredentials
-      responses: *responsesPostAddress
+      responses: *responsesPostAnyAddress
 
   /settings:
     put:

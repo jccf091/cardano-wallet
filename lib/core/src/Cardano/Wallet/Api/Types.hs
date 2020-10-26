@@ -48,6 +48,8 @@ module Cardano.Wallet.Api.Types
     , ApiPubKey (..)
     , Credential (..)
     , ApiCredentials (..)
+    , AnyAddress (..)
+    , AnyAddressType (..)
     , ApiCertificate (..)
     , ApiEpochInfo (..)
     , ApiSelectCoinsData (..)
@@ -411,6 +413,17 @@ data Credential = Credential
 data ApiCredentials = ApiCredentials
     { spending :: !(Maybe Credential)
     , staking :: !(Maybe Credential)
+    } deriving (Eq, Generic, Show)
+
+data AnyAddressType =
+      EnterpriseDelegating
+    | RewardAccount
+    deriving (Eq, Show)
+
+data AnyAddress = AnyAddress
+    { payload :: ByteString
+    , flavour :: AnyAddressType
+    , network :: Int
     } deriving (Eq, Generic, Show)
 
 data ApiEpochInfo = ApiEpochInfo
@@ -1395,6 +1408,18 @@ instance ToJSON ApiCredentials where
     toJSON (ApiCredentials (Just spending') (Just staking')) =
         object [ "spending" .= toJSON spending', "staking" .= toJSON staking']
 
+instance FromJSON AnyAddress where
+    parseJSON = parseJSON >=> eitherToParser . first ShowFmt . fromText
+instance ToJSON AnyAddress where
+    toJSON (AnyAddress p addrType net) = do
+        let hrp = case (addrType, net) of
+                (EnterpriseDelegating, 1) -> [Bech32.humanReadablePart|addr|]
+                (RewardAccount, 1) -> [Bech32.humanReadablePart|stake|]
+                (EnterpriseDelegating, 0) -> [Bech32.humanReadablePart|addr_test|]
+                (RewardAccount, 0) -> [Bech32.humanReadablePart|stake_test|]
+                _ -> error "Wrong network tag"
+        String $ T.decodeUtf8 $ encode (EBech32 hrp) p
+
 instance MkSomeMnemonic sizes => FromJSON (ApiMnemonicT sizes)
   where
     parseJSON bytes = do
@@ -1841,6 +1866,24 @@ instance FromText ApiPubKey where
                 "addr_vk" -> proceedWhenHrpCorrect
                 _ -> Left $ TextDecodingError "ApiPubKey must have either 'addr_vk' or 'stake_vk' prefix."
         _ -> Left $ TextDecodingError "ApiPubKey must be must be encoded as Bech32."
+
+instance FromText AnyAddress where
+    fromText txt = case detectEncoding (T.unpack txt) of
+        Just EBech32{} -> do
+            (hrp, dp) <- either
+                (const $ Left $ TextDecodingError "AnyAddress's Bech32 has invalid text.")
+                Right (Bech32.decodeLenient txt)
+            let err1 = TextDecodingError "AnyAddress has invalid Bech32 datapart."
+            let proceedWhenHrpCorrect ctr net = do
+                    bytes <- maybeToRight err1 (Bech32.dataPartToBytes dp)
+                    Right $ AnyAddress bytes ctr net
+            case Bech32.humanReadablePartToText hrp of
+                "addr" -> proceedWhenHrpCorrect EnterpriseDelegating 1
+                "addr_test" -> proceedWhenHrpCorrect EnterpriseDelegating 0
+                "stake" -> proceedWhenHrpCorrect RewardAccount 1
+                "stake_test" -> proceedWhenHrpCorrect RewardAccount 0
+                _ -> Left $ TextDecodingError "AnyAddress is not correctly prefixed."
+        _ -> Left $ TextDecodingError "AnyAddress must be must be encoded as Bech32."
 
 {-------------------------------------------------------------------------------
                              HTTPApiData instances

@@ -779,7 +779,6 @@ data ApiErrorCode
     | MalformedTxPayload
     | KeyNotFoundForAddress
     | NotEnoughMoney
-    | UtxoNotEnoughFragmented
     | TransactionIsTooBig
     | InputsDepleted
     | CannotCoverFee
@@ -793,18 +792,15 @@ data ApiErrorCode
     | NotFound
     | MethodNotAllowed
     | NotAcceptable
-    | StartTimeLaterThanEndTime
-    | UnableToDetermineCurrentEpoch
     | UnsupportedMediaType
     | UnexpectedError
+    | StartTimeLaterThanEndTime
+    | UnableToDetermineCurrentEpoch
     | NotSynced
     | NothingToMigrate
     | NoSuchPool
     | PoolAlreadyJoined
     | NotDelegatingTo
-    | InvalidRestorationParameters
-    | RejectedTip
-    | InvalidDelegationDiscovery
     | NotImplemented
     | WalletNotResponding
     | AddressAlreadyExists

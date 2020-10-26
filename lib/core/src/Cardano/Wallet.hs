@@ -2437,7 +2437,6 @@ data ErrJoinStakePool
     | ErrJoinStakePoolSignDelegation ErrSignDelegation
     | ErrJoinStakePoolSubmitTx ErrSubmitTx
     | ErrJoinStakePoolCannotJoin ErrCannotJoin
-    | ErrJoinStakePoolUnableToAssignInputs CoinSelection
     deriving (Generic, Eq, Show)
 
 data ErrQuitStakePool
@@ -2446,7 +2445,6 @@ data ErrQuitStakePool
     | ErrQuitStakePoolSignDelegation ErrSignDelegation
     | ErrQuitStakePoolSubmitTx ErrSubmitTx
     | ErrQuitStakePoolCannotQuit ErrCannotQuit
-    | ErrQuitStakePoolUnableToAssignInputs CoinSelection
     deriving (Generic, Eq, Show)
 
 -- | Errors that can occur when fetching the reward balance of a wallet

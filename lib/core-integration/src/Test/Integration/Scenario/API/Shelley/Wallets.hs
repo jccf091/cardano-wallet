@@ -59,7 +59,7 @@ import Cardano.Wallet.Primitive.Types
 import Cardano.Wallet.Unsafe
     ( unsafeFromHex )
 import Control.Monad
-    ( forM_ )
+    ( forM, forM_ )
 import Control.Monad.IO.Class
     ( liftIO )
 import Control.Monad.Trans.Resource
@@ -109,6 +109,9 @@ import Test.Integration.Framework.DSL
     , getFromResponse
     , json
     , listAddresses
+    , listFilteredByronWallets
+    , listFilteredWallets
+    , listFilteredWallets
     , minUTxOValue
     , notDelegating
     , postWallet
@@ -147,6 +150,7 @@ import qualified Cardano.Wallet.Api.Link as Link
 import qualified Data.ByteString.Lazy as BL
 import qualified Data.List as L
 import qualified Data.List.NonEmpty as NE
+import qualified Data.Set as Set
 import qualified Data.Text as T
 import qualified Network.HTTP.Types as HTTP
 
@@ -206,6 +210,7 @@ spec = describe "SHELLEY_WALLETS" $ do
                     "passphrase": "12345678910"
                     } |]
             r <- postWallet ctx payload
+            let wid = getFromResponse id r
             verify r
                 [ expectResponseCode HTTP.status201
                 , expectField
@@ -223,13 +228,11 @@ spec = describe "SHELLEY_WALLETS" $ do
                     (`shouldBe` "135bfb99b9f7a0c702bf8c658cc0d9b1a0d797a2")
                 , expectField #passphrase (`shouldNotBe` Nothing)
                 ]
-            let listWallets = Link.listWallets @'Shelley
             eventually "listed wallet's state = Ready" $ do
-                rl <- request @[ApiWallet] ctx listWallets Default Empty
-                verify rl
+                r2 <- request @ApiWallet ctx (Link.getWallet @'Shelley wid) Default Empty
+                verify r2
                     [ expectResponseCode HTTP.status200
-                    , expectListSize 1
-                    , expectListField 0 (#state . #getApiT) (`shouldBe` Ready)
+                    , expectField (#state . #getApiT) (`shouldBe` Ready)
                     ]
 
     it "WALLETS_CREATE_02 - Restored wallet preserves funds" $ \ctx -> runResourceT $ do
@@ -562,8 +565,8 @@ spec = describe "SHELLEY_WALLETS" $ do
                 "passphrase": #{fixturePassphrase},
                 "address_pool_gap": 20
                 } |]
-        _ <- postWallet ctx payload
-        rl <- request @[ApiWallet] ctx (Link.listWallets @'Shelley) Default Empty
+        wid <- getFromResponse walletId <$> postWallet ctx payload
+        rl <- listFilteredWallets (Set.singleton wid) ctx
         verify rl
             [ expectResponseCode HTTP.status200
             , expectListSize 1
@@ -587,11 +590,11 @@ spec = describe "SHELLEY_WALLETS" $ do
         m21 <- liftIO $ genMnemonics M21
         let walletDetails = [("1", m15), ("2", m18)
                     , ("3", m21)]
-        forM_ walletDetails $ \(name, mnemonics) -> do
+        wids <- forM walletDetails $ \(name, mnemonics) -> do
             let payload = payloadWith name mnemonics
-            postWallet ctx payload
+            getFromResponse walletId <$> postWallet ctx payload
 
-        rl <- request @[ApiWallet] ctx (Link.listWallets @'Shelley) Default Empty
+        rl <- listFilteredWallets (Set.fromList wids) ctx
         verify rl
             [ expectResponseCode HTTP.status200
             , expectListSize 3
@@ -606,7 +609,7 @@ spec = describe "SHELLEY_WALLETS" $ do
     it "WALLETS_LIST_02 - Deleted wallet not listed" $ \ctx -> runResourceT $ do
         w <- emptyWallet ctx
         _ <- request @ApiWallet ctx (Link.deleteWallet @'Shelley w) Default Empty
-        rl <- request @[ApiWallet] ctx (Link.listWallets @'Shelley) Default Empty
+        rl <- listFilteredWallets (Set.singleton $ w ^. walletId) ctx
         verify rl
             [ expectResponseCode HTTP.status200
             , expectListSize 0
@@ -1386,16 +1389,20 @@ spec = describe "SHELLEY_WALLETS" $ do
         m1 <- liftIO $ genMnemonics M12
         m2 <- liftIO $ genMnemonics M12
         m3 <- liftIO $ genMnemonics M12
-        _ <- emptyByronWalletWith ctx "random" ("byron1", m1, fixturePassphrase)
-        _ <- emptyByronWalletWith ctx "random" ("byron2", m2, fixturePassphrase)
-        _ <- emptyByronWalletWith ctx "random" ("byron3", m3, fixturePassphrase)
+        r1 <- emptyByronWalletWith ctx "random" ("byron1", m1, fixturePassphrase)
+        r2 <- emptyByronWalletWith ctx "random" ("byron2", m2, fixturePassphrase)
+        r3 <- emptyByronWalletWith ctx "random" ("byron3", m3, fixturePassphrase)
 
-        _ <- emptyWalletWith ctx ("shelley1", fixturePassphrase, 20)
-        _ <- emptyWalletWith ctx ("shelley2", fixturePassphrase, 20)
-        _ <- emptyWalletWith ctx ("shelley3", fixturePassphrase, 20)
+        r4 <- emptyWalletWith ctx ("shelley1", fixturePassphrase, 20)
+        r5 <- emptyWalletWith ctx ("shelley2", fixturePassphrase, 20)
+        r6 <- emptyWalletWith ctx ("shelley3", fixturePassphrase, 20)
+
+        let wids = Set.fromList
+                $ map (view walletId) [r1,r2,r3]
+                ++ map (view walletId) [r4,r5,r6]
 
         --list only byron
-        rl <- request @[ApiByronWallet] ctx (Link.listWallets @'Byron) Default Empty
+        rl <- listFilteredByronWallets wids ctx
         verify rl
             [ expectResponseCode HTTP.status200
             , expectListSize 3
@@ -1407,7 +1414,7 @@ spec = describe "SHELLEY_WALLETS" $ do
                     (#name . #getApiT . #getWalletName) (`shouldBe` "byron3")
             ]
         --list only shelley
-        rl2 <- request @[ApiWallet] ctx (Link.listWallets @'Shelley) Default Empty
+        rl2 <- listFilteredWallets wids ctx
         verify rl2
             [ expectResponseCode HTTP.status200
             , expectListSize 3
@@ -1424,20 +1431,24 @@ spec = describe "SHELLEY_WALLETS" $ do
         m1 <- liftIO $ genMnemonics M12
         m2 <- liftIO $ genMnemonics M12
         m3 <- liftIO $ genMnemonics M12
-        _   <- emptyByronWalletWith ctx "random" ("byron1", m1, fixturePassphrase)
+        _wb1   <- emptyByronWalletWith ctx "random" ("byron1", m1, fixturePassphrase)
         wb2 <- emptyByronWalletWith ctx "random" ("byron2", m2, fixturePassphrase)
-        _   <- emptyByronWalletWith ctx "random" ("byron3", m3, fixturePassphrase)
+        _wb3   <- emptyByronWalletWith ctx "random" ("byron3", m3, fixturePassphrase)
 
-        _ <- emptyWalletWith ctx ("shelley1", fixturePassphrase, 20)
-        _ <- emptyWalletWith ctx ("shelley2", fixturePassphrase, 20)
+        _ws1 <- emptyWalletWith ctx ("shelley1", fixturePassphrase, 20)
+        _ws2 <- emptyWalletWith ctx ("shelley2", fixturePassphrase, 20)
         ws3 <- emptyWalletWith ctx ("shelley3", fixturePassphrase, 20)
+
+        let wids = Set.fromList
+                $ map (view walletId) [_wb1,wb2,_wb3]
+                ++ map (view walletId) [_ws1,_ws2,ws3]
 
         -- delete
         _ <- request @ApiByronWallet ctx (Link.deleteWallet @'Byron wb2) Default Empty
         _ <- request @ApiWallet ctx (Link.deleteWallet @'Shelley ws3) Default Empty
 
         --list only byron
-        rdl <- request @[ApiByronWallet] ctx (Link.listWallets @'Byron) Default Empty
+        rdl <- listFilteredByronWallets wids ctx
         verify rdl
             [ expectResponseCode HTTP.status200
             , expectListSize 2
@@ -1447,7 +1458,7 @@ spec = describe "SHELLEY_WALLETS" $ do
                     (#name . #getApiT . #getWalletName) (`shouldBe` "byron3")
             ]
         --list only shelley
-        rdl2 <- request @[ApiWallet] ctx (Link.listWallets @'Shelley) Default Empty
+        rdl2 <- listFilteredWallets wids ctx
         verify rdl2
             [ expectResponseCode HTTP.status200
             , expectListSize 2

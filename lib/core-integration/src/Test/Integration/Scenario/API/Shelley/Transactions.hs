@@ -101,6 +101,7 @@ import Test.Integration.Framework.DSL
     , Headers (..)
     , Payload (..)
     , between
+    , counterexample
     , defaultTxTTL
     , emptyByronWalletWith
     , emptyRandomWallet
@@ -1032,9 +1033,10 @@ spec = describe "SHELLEY_TRANSACTIONS" $ do
 
             r'' <- request @ApiWallet ctx
                 (Link.getWallet @'Shelley wFaucet) Default Empty
-            expectField
-                (#balance . #getApiT . #available)
-                (`shouldBe` Quantity (faucetAmt - feeMin - amtSrc)) r''
+            counterexample ("fee response: " <> show r2) $
+                expectField
+                    (#balance . #getApiT . #available)
+                    (`shouldBe` Quantity (faucetAmt - feeMin - amtSrc)) r''
 
         -- #2238 quick fix to reduce likelihood of rollback.
         liftIO $ threadDelay $ 10 * oneSecond

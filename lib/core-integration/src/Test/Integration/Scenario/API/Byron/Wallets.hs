@@ -44,7 +44,7 @@ import Cardano.Wallet.Primitive.AddressDiscovery.Sequential
 import Cardano.Wallet.Primitive.SyncProgress
     ( SyncProgress (..) )
 import Control.Monad
-    ( forM_, void )
+    ( forM_ )
 import Control.Monad.IO.Class
     ( liftIO )
 import Control.Monad.Trans.Resource

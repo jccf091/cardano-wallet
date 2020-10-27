@@ -28,6 +28,8 @@ import Data.Text.Class
     , fromTextToBoundedEnum
     , toTextFromBoundedEnum
     )
+import Data.Time.Clock
+    ( NominalDiffTime )
 import GHC.Generics
     ( Generic )
 import Numeric.Natural
@@ -111,6 +113,7 @@ spec = do
         textRoundtrip $ Proxy @Natural
         textRoundtrip $ Proxy @Int
         textRoundtrip $ Proxy @Text
+        textRoundtrip $ Proxy @NominalDiffTime
 
     describe "BoundedEnum" $ do
         it "fromTextToBoundedEnum s (toTextFromBoundedEnum s a) == Right a" $
@@ -159,6 +162,10 @@ instance Arbitrary Digits where
 instance Arbitrary Natural where
     shrink = shrinkIntegral
     arbitrary = arbitrarySizedNatural
+
+instance Arbitrary NominalDiffTime where
+    shrink = fmap fromIntegral . shrink . fromIntegral @Natural @Natural . floor
+    arbitrary = fromIntegral @Natural <$> arbitrary
 
 data TestBoundedEnum
     = A

@@ -2176,7 +2176,7 @@ spec = describe "SHELLEY_TRANSACTIONS" $ do
         txDeleteFromDifferentWalletTest emptyRandomWallet "byron-wallets"
 
     it "TRANS_TTL_DELETE_01 - Shelley: can remove expired tx" $ \ctx -> do
-        (wa, wb) <- (,) <$> fixtureWallet ctx <*> fixtureWallet ctx
+        (wa, wb) <- (,) <$> fixtureWallet ctx <*> emptyWallet ctx
         let amt = minUTxOValue :: Natural
 
         -- this transaction is going to expire really soon.

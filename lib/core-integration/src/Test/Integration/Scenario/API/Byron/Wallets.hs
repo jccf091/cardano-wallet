@@ -62,9 +62,9 @@ import Data.Proxy
 import Data.Quantity
     ( Quantity (..) )
 import Test.Hspec
-    ( SpecWith, describe, runIO, shouldNotBe, shouldSatisfy )
+    ( SpecWith, describe, runIO )
 import Test.Hspec.Expectations.Lifted
-    ( shouldBe )
+    ( shouldBe, shouldNotBe, shouldSatisfy )
 import Test.Hspec.Extra
     ( it )
 import Test.Integration.Framework.DSL
@@ -397,8 +397,8 @@ spec = describe "BYRON_WALLETS" $ do
         shW <- emptyWallet ctx
         (addr:_) <- fmap (view #id) <$> listAddresses @n ctx shW
         let payments = NE.fromList [ AddressAmount addr (Quantity minUTxOValue) ]
-        liftIO $ selectCoins @_ @'Byron ctx rnW payments >>= flip verify
-            [ expectResponseCode @IO HTTP.status403
+        selectCoins @_ @'Byron ctx rnW payments >>= flip verify
+            [ expectResponseCode HTTP.status403
             , expectErrorMessage errMsg403NotAnIcarusWallet
             ]
 
@@ -419,7 +419,7 @@ spec = describe "BYRON_WALLETS" $ do
                       , ApiT $ DerivationIndex $ getIndex @'Hardened minBound
                       ] `isPrefixOf` NE.toList path
                     )
-            liftIO $ selectCoins @_ @'Byron ctx source (payment :| []) >>= flip verify
+            selectCoins @_ @'Byron ctx source (payment :| []) >>= flip verify
                 [ expectResponseCode HTTP.status200
                 , expectField #inputs
                     (`shouldSatisfy` (not . null))
@@ -449,7 +449,7 @@ spec = describe "BYRON_WALLETS" $ do
             let outputs =
                     take paymentCount
                     $ zipWith ApiCoinSelectionOutput targetAddresses amounts
-            liftIO $ selectCoins @_ @'Byron ctx source payments >>= flip verify
+            selectCoins @_ @'Byron ctx source payments >>= flip verify
                 [ expectResponseCode HTTP.status200
                 , expectField #inputs (`shouldSatisfy` (not . null))
                 , expectField #change (`shouldSatisfy` (not . null))
@@ -464,8 +464,8 @@ spec = describe "BYRON_WALLETS" $ do
         (addr:_) <- fmap (view #id) <$> listAddresses @n ctx shW
         let payments = NE.fromList [ AddressAmount addr (Quantity minUTxOValue) ]
         _ <- request @ApiByronWallet ctx (Link.deleteWallet @'Byron icW) Default Empty
-        liftIO $ selectCoins @_ @'Byron ctx icW payments >>= flip verify
-            [ expectResponseCode @IO HTTP.status404
+        selectCoins @_ @'Byron ctx icW payments >>= flip verify
+            [ expectResponseCode HTTP.status404
             , expectErrorMessage (errMsg404NoWallet $ icW ^. walletId)
             ]
 
@@ -487,7 +487,7 @@ spec = describe "BYRON_WALLETS" $ do
                       , ApiT $ DerivationIndex $ getIndex @'Hardened minBound
                       ] `isPrefixOf` NE.toList path
                     )
-            liftIO $ selectCoins @_ @'Byron ctx source (payment :| []) >>= flip verify
+            selectCoins @_ @'Byron ctx source (payment :| []) >>= flip verify
                 [ expectResponseCode HTTP.status200
                 , expectField #inputs
                     (`shouldSatisfy` (not . null))

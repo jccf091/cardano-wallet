@@ -933,7 +933,7 @@ spec = describe "SHELLEY_WALLETS" $ do
                       , ApiT $ DerivationIndex $ getIndex @'Hardened minBound
                       ] `isPrefixOf` NE.toList path
                     )
-            liftIO $ selectCoins @_ @'Shelley ctx source (payment :| []) >>= flip verify
+            selectCoins @_ @'Shelley ctx source (payment :| []) >>= flip verify
                 [ expectResponseCode HTTP.status200
                 , expectField #inputs
                     (`shouldSatisfy` (not . null))
@@ -963,7 +963,7 @@ spec = describe "SHELLEY_WALLETS" $ do
             let outputs =
                     take paymentCount
                     $ zipWith ApiCoinSelectionOutput targetAddresses amounts
-            liftIO $ selectCoins @_ @'Shelley ctx source payments >>= flip verify
+            selectCoins @_ @'Shelley ctx source payments >>= flip verify
                 [ expectResponseCode HTTP.status200
                 , expectField #inputs (`shouldSatisfy` (not . null))
                 , expectField #change (`shouldSatisfy` (not . null))
@@ -977,7 +977,7 @@ spec = describe "SHELLEY_WALLETS" $ do
         (addr:_) <- fmap (view #id) <$> listAddresses @n ctx w
         let payments = NE.fromList [ AddressAmount addr (Quantity minUTxOValue) ]
         _ <- request @ApiWallet ctx (Link.deleteWallet @'Shelley w) Default Empty
-        liftIO $ selectCoins @_ @'Shelley ctx w payments >>= flip verify
+        selectCoins @_ @'Shelley ctx w payments >>= flip verify
             [ expectResponseCode HTTP.status404
             , expectErrorMessage (errMsg404NoWallet $ w ^. walletId)
             ]
@@ -1058,7 +1058,7 @@ spec = describe "SHELLEY_WALLETS" $ do
                       , ApiT $ DerivationIndex $ getIndex @'Hardened minBound
                       ] `isPrefixOf` NE.toList path
                     )
-            liftIO $ selectCoins @_ @'Shelley ctx source (payment :| []) >>= flip verify
+            selectCoins @_ @'Shelley ctx source (payment :| []) >>= flip verify
                 [ expectResponseCode HTTP.status200
                 , expectField #inputs
                     (`shouldSatisfy` (not . null))

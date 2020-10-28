@@ -392,19 +392,19 @@ spec = describe "BYRON_WALLETS" $ do
             ]
 
     it "BYRON_COIN_SELECTION_00 - \
-        \No coin selection on Byron random" $ \ctx -> do
+        \No coin selection on Byron random" $ \ctx -> runResourceT $ do
         rnW <- emptyRandomWallet ctx
         shW <- emptyWallet ctx
         (addr:_) <- fmap (view #id) <$> listAddresses @n ctx shW
         let payments = NE.fromList [ AddressAmount addr (Quantity minUTxOValue) ]
-        selectCoins @_ @'Byron ctx rnW payments >>= flip verify
+        liftIO $ selectCoins @_ @'Byron ctx rnW payments >>= flip verify
             [ expectResponseCode @IO HTTP.status403
             , expectErrorMessage errMsg403NotAnIcarusWallet
             ]
 
     it "BYRON_COIN_SELECTION_01 - \
         \A singleton payment is included in the coin selection output." $
-        \ctx -> do
+        \ctx -> runResourceT $ do
             source <- fixtureIcarusWallet ctx
             target <- emptyWallet ctx
             targetAddress : _ <- fmap (view #id) <$> listAddresses @n ctx target
@@ -419,7 +419,7 @@ spec = describe "BYRON_WALLETS" $ do
                       , ApiT $ DerivationIndex $ getIndex @'Hardened minBound
                       ] `isPrefixOf` NE.toList path
                     )
-            selectCoins @_ @'Byron ctx source (payment :| []) >>= flip verify
+            liftIO $ selectCoins @_ @'Byron ctx source (payment :| []) >>= flip verify
                 [ expectResponseCode HTTP.status200
                 , expectField #inputs
                     (`shouldSatisfy` (not . null))
@@ -437,7 +437,7 @@ spec = describe "BYRON_WALLETS" $ do
 
     it "BYRON_COIN_SELECTION_02 - \
         \Multiple payments are all included in the coin selection output." $
-        \ctx -> do
+        \ctx -> runResourceT $ do
             let paymentCount = 10
             source <- fixtureIcarusWallet ctx
             target <- emptyWallet ctx
@@ -449,7 +449,7 @@ spec = describe "BYRON_WALLETS" $ do
             let outputs =
                     take paymentCount
                     $ zipWith ApiCoinSelectionOutput targetAddresses amounts
-            selectCoins @_ @'Byron ctx source payments >>= flip verify
+            liftIO $ selectCoins @_ @'Byron ctx source payments >>= flip verify
                 [ expectResponseCode HTTP.status200
                 , expectField #inputs (`shouldSatisfy` (not . null))
                 , expectField #change (`shouldSatisfy` (not . null))
@@ -458,20 +458,20 @@ spec = describe "BYRON_WALLETS" $ do
                 ]
 
     it "BYRON_COIN_SELECTION_03 - \
-        \Deleted wallet is not available for selection" $ \ctx -> do
+        \Deleted wallet is not available for selection" $ \ctx -> runResourceT $ do
         icW <- emptyIcarusWallet ctx
         shW <- emptyWallet ctx
         (addr:_) <- fmap (view #id) <$> listAddresses @n ctx shW
         let payments = NE.fromList [ AddressAmount addr (Quantity minUTxOValue) ]
         _ <- request @ApiByronWallet ctx (Link.deleteWallet @'Byron icW) Default Empty
-        selectCoins @_ @'Byron ctx icW payments >>= flip verify
+        liftIO $ selectCoins @_ @'Byron ctx icW payments >>= flip verify
             [ expectResponseCode @IO HTTP.status404
             , expectErrorMessage (errMsg404NoWallet $ icW ^. walletId)
             ]
 
     it "BYRON_COIN_SELECTION_05 - \
         \No change when payment fee eats leftovers due to minUTxOValue" $
-        \ctx -> do
+        \ctx -> runResourceT $ do
             source  <- fixtureIcarusWalletWith @n ctx [minUTxOValue, minUTxOValue]
             target <- emptyWallet ctx
 
@@ -487,7 +487,7 @@ spec = describe "BYRON_WALLETS" $ do
                       , ApiT $ DerivationIndex $ getIndex @'Hardened minBound
                       ] `isPrefixOf` NE.toList path
                     )
-            selectCoins @_ @'Byron ctx source (payment :| []) >>= flip verify
+            liftIO $ selectCoins @_ @'Byron ctx source (payment :| []) >>= flip verify
                 [ expectResponseCode HTTP.status200
                 , expectField #inputs
                     (`shouldSatisfy` (not . null))
